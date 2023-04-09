@@ -10,10 +10,10 @@
         android:id="@+id/greet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="325dp"
-        android:layout_marginBottom="725dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="14dp"
         android:text="Witaj"
         android:textSize="20dp">
 
@@ -23,15 +23,39 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="86dp"
-        android:layout_marginEnd="189dp"
-        android:layout_marginBottom="718dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="14dp"
+        android:layout_toEndOf="@+id/greet"
         android:text="name"
         android:textSize="20dp">
 
     </TextView>
+
+    <TextView
+        android:id="@+id/total_steps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="132dp"
+        android:layout_marginEnd="64dp"
+        android:text="number_of_steps"
+        android:textSize="20dp">
+
+    </TextView>
+
+    <Button
+        android:id="@+id/incr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/total_steps"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="61dp"
+        android:layout_marginEnd="75dp"
+        android:text="incremen">
+
+    </Button>
 
 
 </RelativeLayout>
