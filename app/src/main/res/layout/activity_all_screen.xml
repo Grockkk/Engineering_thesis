@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".AllActivityScreen">
 
+    <!--Witaj-->
     <TextView
         android:id="@+id/greet"
         android:layout_width="wrap_content"
@@ -18,7 +19,7 @@
         android:textSize="20dp">
 
     </TextView>
-
+    <!--Imie-->
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
@@ -31,31 +32,76 @@
         android:textSize="20dp">
 
     </TextView>
-
+    <!--Steps-->
     <TextView
         android:id="@+id/total_steps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="132dp"
-        android:layout_marginEnd="64dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="51dp"
+        android:layout_marginBottom="567dp"
         android:text="number_of_steps"
         android:textSize="20dp">
 
     </TextView>
+    <!--Data-->
+    <TextView
+        android:id="@+id/currnet_day"
+        android:layout_width="161dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="71dp"
+        android:layout_marginEnd="17dp"
+        android:layout_toStartOf="@+id/next_day"
+        android:layout_toEndOf="@+id/prev_day"
+        android:gravity="center"
+        android:text="date"
+        android:textSize="17dp">
+
+    </TextView>
 
     <Button
-        android:id="@+id/incr"
+        android:id="@+id/prev_day"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/total_steps"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="61dp"
-        android:layout_marginEnd="75dp"
-        android:text="incremen">
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="58dp"
+        android:layout_marginBottom="72dp"
+        android:text="prev"
+        android:textSize="15dp">
 
     </Button>
+
+    <Button
+        android:id="@+id/next_day"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="58dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="72dp"
+        android:text="next"
+        android:textSize="15dp">
+
+    </Button>
+
+    <TextView
+        android:id="@+id/sleep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="51dp"
+        android:text="sleep"
+        android:layout_marginBottom="517dp"
+        android:textSize="20dp">
+
+    </TextView>
 
 
 </RelativeLayout>

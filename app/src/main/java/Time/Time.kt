@@ -1,10 +1,10 @@
-package com.example.engineering_thesis
+package Time
 
 import java.time.*
 
 class Time() {
     var Day: Long = 0
-    val day = LocalDate.now().minusDays(Day)
+    var day = LocalDate.now().minusDays(Day)
 
     fun getStartTime(): Instant {
 
@@ -17,10 +17,12 @@ class Time() {
     }
     fun incrDay() {
         Day += 1;
+        day = LocalDate.now().minusDays(Day)
     }
     fun decrDay(){
         if (day != LocalDate.now()){
             Day -= 1;
+            day = LocalDate.now().minusDays(Day)
         }
     }
 
