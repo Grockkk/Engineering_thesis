@@ -6,19 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".AllActivityScreen">
 
-    <!--Witaj-->
-    <TextView
-        android:id="@+id/greet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="14dp"
-        android:text="Witaj"
-        android:textSize="20dp">
-
-    </TextView>
     <!--Imie-->
     <TextView
         android:id="@+id/name"
@@ -40,12 +27,12 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="51dp"
-        android:layout_marginBottom="567dp"
+        android:layout_marginBottom="560dp"
         android:text="number_of_steps"
         android:textSize="20dp">
 
     </TextView>
-    <!--Data-->
+    <!--Date-->
     <TextView
         android:id="@+id/currnet_day"
         android:layout_width="161dp"
@@ -61,7 +48,7 @@
         android:textSize="17dp">
 
     </TextView>
-
+    <!--PrevDay-->
     <Button
         android:id="@+id/prev_day"
         android:layout_width="wrap_content"
@@ -75,7 +62,7 @@
         android:textSize="15dp">
 
     </Button>
-
+    <!--NextDay-->
     <Button
         android:id="@+id/next_day"
         android:layout_width="wrap_content"
@@ -89,7 +76,7 @@
         android:textSize="15dp">
 
     </Button>
-
+    <!--Sleep-->
     <TextView
         android:id="@+id/sleep"
         android:layout_width="wrap_content"
@@ -97,8 +84,34 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="51dp"
+        android:layout_marginBottom="500dp"
         android:text="sleep"
-        android:layout_marginBottom="517dp"
+        android:textSize="20dp">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/hr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="51dp"
+        android:layout_marginBottom="440dp"
+        android:text="hr"
+        android:textSize="20dp">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/dist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="51dp"
+        android:layout_marginBottom="380dp"
+        android:text="distance"
         android:textSize="20dp">
 
     </TextView>

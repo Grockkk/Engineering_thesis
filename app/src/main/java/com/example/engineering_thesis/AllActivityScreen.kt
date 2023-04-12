@@ -1,6 +1,6 @@
 package com.example.engineering_thesis
 
-import Data.Steps
+import Data.*
 import Time.Time
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
@@ -31,7 +31,12 @@ class AllActivityScreen : AppCompatActivity() {
     private lateinit var nextDayButton: Button
     private lateinit var prevDayButton: Button
     val time = Time();
+    //val cal = BurnCal();
+    val dst = Distance();
+    val hr = HeartRatio();
     val st = Steps();
+    val sl = Sleep();
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_screen)
@@ -43,20 +48,26 @@ class AllActivityScreen : AppCompatActivity() {
         var steps: TextView = findViewById(R.id.total_steps)
         var dateOfTheDay: TextView = findViewById(R.id.currnet_day)
         var sleep: TextView = findViewById(R.id.sleep)
+        var heartRat: TextView = findViewById(R.id.hr)
+        var dinstance: TextView = findViewById(R.id.dist)
+        //var burnedCal: TextView = findViewById(R.id.burned_cal)
         prevDayButton = findViewById(R.id.prev_day)
         nextDayButton = findViewById(R.id.next_day)
         dateOfTheDay.text = time.day.toString()
 
-
             GlobalScope.launch(Dispatchers.Main) {
-                val numberOfSteps = readSteps(healthConnectClient, time.getStartTime(), time.getEndTime())
-                val timeOfSleep = readSleepDuration(healthConnectClient, time.getStartTime(), time.getEndTime())
+                val numberOfSteps = st.readSteps(healthConnectClient, time.getStartTime(), time.getEndTime())
+                val timeOfSleep = sl.readSleepDuration(healthConnectClient, time.getStartTime(), time.getEndTime())
+                val meanBPM = hr.aggregateHeartRate(healthConnectClient, time.getStartTime(), time.getEndTime())
+                val totalDistance = dst.readDistance(healthConnectClient, time.getStartTime(), time.getEndTime())
+                //val calories = cal.readBurnedCalories(healthConnectClient, time.getStartTime(), time.getEndTime())
                 runOnUiThread {
-                        steps.text = numberOfSteps.toString()
-                    sleep.text = timeOfSleep.toString()
-
+                    steps.text = "Ilość kroków tego dnia: " + numberOfSteps.toString()
+                    sleep.text = "Całkowity czas snu: " + timeOfSleep
+                    heartRat.text = "Średne bicie serca to: " + hr.getMeanHeartRate().toString()
+                    dinstance.text = "Przebyta odległość: " + totalDistance.toString() + " meters"
+                    //burnedCal.text = calories.toString()
                 }
-
             }
 
         // przyciski ruchu dat
@@ -64,76 +75,42 @@ class AllActivityScreen : AppCompatActivity() {
             prevDayButton.setOnClickListener(){
                 time.incrDay()
                 GlobalScope.launch(Dispatchers.Main) {
-                    val numberOfSteps = readSteps(healthConnectClient, time.getStartTime(), time.getEndTime())
-                    val timeOfSleep = readSleepDuration(healthConnectClient, time.getStartTime(), time.getEndTime())
+                    val numberOfSteps = st.readSteps(healthConnectClient, time.getStartTime(), time.getEndTime())
+                    val timeOfSleep = sl.readSleepDuration(healthConnectClient, time.getStartTime(), time.getEndTime())
+                    val meanBPM = hr.aggregateHeartRate(healthConnectClient, time.getStartTime(), time.getEndTime())
+                    val totalDistance = dst.readDistance(healthConnectClient, time.getStartTime(), time.getEndTime())
+                    //val calories = cal.readBurnedCalories(healthConnectClient, time.getStartTime(), time.getEndTime())
                     runOnUiThread {
-                        steps.text = numberOfSteps.toString()
+                        steps.text = "Ilość kroków tego dnia: " + numberOfSteps.toString()
                         dateOfTheDay.text = time.day.toString()
-                        sleep.text = timeOfSleep.toString()
+                        sleep.text = "Całkowity czas snu: " + timeOfSleep
+                        heartRat.text = "Średne bicie serca to: " + hr.getMeanHeartRate().toString()
+                        dinstance.text = "Przebyta odległość: " + totalDistance.toString() + " meters"
+                        //burnedCal.text = calories.toString()
                     }
                }
             }
 
-
             nextDayButton.setOnClickListener(){
                 time.decrDay()
                 GlobalScope.launch(Dispatchers.Main) {
-                    val numberOfSteps = readSteps(healthConnectClient, time.getStartTime(), time.getEndTime())
-                    val timeOfSleep = readSleepDuration(healthConnectClient, time.getStartTime(), time.getEndTime())
+                    val numberOfSteps = st.readSteps(healthConnectClient, time.getStartTime(), time.getEndTime())
+                    val timeOfSleep = sl.readSleepDuration(healthConnectClient, time.getStartTime(), time.getEndTime())
+                    val meanBPM = hr.aggregateHeartRate(healthConnectClient, time.getStartTime(), time.getEndTime())
+                    val totalDistance = dst.readDistance(healthConnectClient, time.getStartTime(), time.getEndTime())
+                    //val calories = cal.readBurnedCalories(healthConnectClient, time.getStartTime(), time.getEndTime())
                     runOnUiThread {
-                        steps.text = numberOfSteps.toString()
+                        steps.text = "Ilość kroków tego dnia: " + numberOfSteps.toString()
                         dateOfTheDay.text = time.day.toString()
-                        sleep.text = timeOfSleep.toString()
+                        sleep.text = "Całkowity czas snu: " + timeOfSleep
+                        heartRat.text = "Średne bicie serca to: " + hr.getMeanHeartRate().toString()
+                        dinstance.text = "Przebyta odległość: " + totalDistance.toString() + " meters"
+                        //burnedCal.text = calories.toString()
                     }
                 }
             }
         // koniec przycisków ruchu dat
 
-
-
-
-    }
-    suspend fun readSteps(healthConnectClient : HealthConnectClient, startTime: Instant, endTime: Instant): Int? {
-        val response =
-            healthConnectClient.aggregate(
-                AggregateRequest(
-                    metrics = setOf(StepsRecord.COUNT_TOTAL),
-                    timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
-                )
-            )
-// The result may be null if no data is available in the time range.
-        if(response[StepsRecord.COUNT_TOTAL]?.toInt() == null) {
-            return 0
-        }
-        else{
-            return response[StepsRecord.COUNT_TOTAL]?.toInt()
-        }
-    }
-
-    suspend fun readSleepDuration(healthConnectClient : HealthConnectClient, startTime: Instant, endTime: Instant): AggregateMetric<Duration> {
-        val response =
-            healthConnectClient.readRecords(
-                ReadRecordsRequest(
-                    SleepSessionRecord::class,
-                    timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
-                )
-            )
-        for (sleepRecord in response.records) {
-            // Process each exercise record
-            // Optionally pull in sleep stages of the same time range
-            val sleepStageRecords =
-                healthConnectClient
-                    .readRecords(
-                        ReadRecordsRequest(
-                            SleepStageRecord::class,
-                            timeRangeFilter =
-                            TimeRangeFilter.between(sleepRecord.startTime, sleepRecord.endTime)
-                        )
-                    )
-                    .records
-        }
-        val sleep = SleepSessionRecord.SLEEP_DURATION_TOTAL
-        return sleep
     }
     fun InitializeGoogle(): HealthConnectClient {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -144,14 +121,11 @@ class AllActivityScreen : AppCompatActivity() {
         person_name = findViewById(R.id.name)
         if (acct!= null) {
             val personName = acct.displayName;
-            person_name.setText(personName)
+            person_name.text = "Witaj " + personName
 
         }
-        // kroki
 
         return HealthConnectClient.getOrCreate(this@AllActivityScreen)
     }
-
-
 }
 
