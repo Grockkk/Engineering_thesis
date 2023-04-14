@@ -34,12 +34,25 @@ class HeartRatio {
     }
 
     fun getMinimumHeartRate(): Long? {
-        return minimumHeartRate
+        if (minimumHeartRate != null){
+            return minimumHeartRate
+        }else{
+            return 0;
+        }
+
     }
     fun getMaximumHeartRate(): Long? {
-        return maximumHeartRate
+        if (maximumHeartRate != null){
+            return maximumHeartRate
+        }else{
+            return 0;
+        }
     }
     fun getMeanHeartRate(): Long? {
-        return meanHeartRate
+        if (meanHeartRate != null){
+            return meanHeartRate
+        }else{
+            return 0;
+        }
     }
 }

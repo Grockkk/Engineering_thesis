@@ -20,9 +20,16 @@ class Distance {
             )
         )
 
-        var totalDistance = response[DistanceRecord.DISTANCE_TOTAL]?.inMeters?.toDouble()
-        totalDistance = round(totalDistance ?: 0.0)
+        var totalDistance = response[DistanceRecord.DISTANCE_TOTAL]?.inKilometers?.toDouble()
+        if (totalDistance != null) {
+            totalDistance = round(totalDistance * 100) / 100
+        }
+        if(totalDistance != null){
+            return totalDistance
+        }
+        else{
+            return 0.0;
+        }
 
-        return totalDistance
     }
 }
