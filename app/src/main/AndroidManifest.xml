@@ -29,11 +29,6 @@
         android:theme="@style/Theme.Engineering_thesis"
         tools:targetApi="31">
         <activity
-            android:name=".DrawerActivity"
-            android:exported="false"
-            android:label="@string/title_activity_drawer"
-            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar" />
-        <activity
             android:name=".AllActivityScreen"
             android:exported="false"
             android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"/>

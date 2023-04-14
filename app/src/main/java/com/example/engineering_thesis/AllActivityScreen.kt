@@ -3,47 +3,54 @@ package com.example.engineering_thesis
 import Data.*
 import Time.Time
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.health.connect.client.HealthConnectClient
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.Task
+import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.*
-import java.time.Instant
 
 class AllActivityScreen : AppCompatActivity() {
 
     private lateinit var gsc: GoogleSignInClient
-    private lateinit var person_name: TextView
     private lateinit var nextDayButton: Button
     private lateinit var prevDayButton: Button
-    val time = Time();
-    //val cal = BurnCal();
-    val dst = Distance();
-    val hr = HeartRatio();
-    val st = Steps();
-    val sl = Sleep();
+    private lateinit var toggle: ActionBarDrawerToggle
+    val time = Time()
+    //val cal = BurnCal()
+    val dst = Distance()
+    val hr = HeartRatio()
+    val st = Steps()
+    val sl = Sleep()
 
     @SuppressLint("MissingInflatedId", "SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_screen)
 
+        //NavBar
+        navBarMenu()
+
 
         // logowanie google
         val healthConnectClient = InitializeGoogle()
 
         //initialize textView and buttons
-        var stepsView: TextView = findViewById(R.id.ID_totalSteps)
-        var dateOfTheDayView: TextView = findViewById(R.id.ID_currnetDay)
-        var sleepView: TextView = findViewById(R.id.ID_sleep)
-        var heartRatView: TextView = findViewById(R.id.ID_hr)
-        var distanceView: TextView = findViewById(R.id.ID_dist)
+        val stepsView: TextView = findViewById(R.id.ID_totalSteps)
+        val dateOfTheDayView: TextView = findViewById(R.id.ID_currnetDay)
+        val sleepView: TextView = findViewById(R.id.ID_sleep)
+        val heartRatView: TextView = findViewById(R.id.ID_hr)
+        val distanceView: TextView = findViewById(R.id.ID_dist)
         //var burnedCal: TextView = findViewById(R.id.burned_cal)
 
         prevDayButton = findViewById(R.id.ID_prevDay)
@@ -81,6 +88,7 @@ class AllActivityScreen : AppCompatActivity() {
         }
 
     }
+
     @SuppressLint("SetTextI18n")
     fun InitializeGoogle(): HealthConnectClient {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -89,7 +97,7 @@ class AllActivityScreen : AppCompatActivity() {
         gsc = GoogleSignIn.getClient(this, gso)
         val acct = GoogleSignIn.getLastSignedInAccount(this)
         if (acct!= null) {
-            val personName = acct.displayName;
+            val personName = acct.displayName
             val actionBar = supportActionBar
             actionBar?.title = "Witaj " + personName.toString()
         }
@@ -115,6 +123,44 @@ class AllActivityScreen : AppCompatActivity() {
                 //burnedCal.text = calories.toString()
             }
         }
+    }
+
+    fun navBarMenu(){
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayout)
+        val navView: NavigationView = findViewById(R.id.naView)
+        toggle = ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        navView.setNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.ID_settings -> Toast.makeText(applicationContext,"nice",Toast.LENGTH_SHORT).show()
+                R.id.ID_profile -> Toast.makeText(applicationContext,"nice",Toast.LENGTH_SHORT).show()
+                R.id.ID_addAct -> Toast.makeText(applicationContext,"nice",Toast.LENGTH_SHORT).show()
+                R.id.ID_startAct -> Toast.makeText(applicationContext,"nice",Toast.LENGTH_SHORT).show()
+                R.id.ID_singOut -> singOut();
+            }
+            true
+        }
+    }
+
+    private fun singOut() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        gsc = GoogleSignIn.getClient(this, gso)
+        gsc.signOut().addOnCompleteListener { task ->
+            finish()
+            startActivity(Intent(this@AllActivityScreen, MainActivity::class.java))
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (toggle.onOptionsItemSelected(item)){
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
 
