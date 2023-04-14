@@ -34,6 +34,7 @@ class AllActivityScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_screen)
 
+
         // logowanie google
         val healthConnectClient = InitializeGoogle()
 
@@ -87,11 +88,10 @@ class AllActivityScreen : AppCompatActivity() {
             .build()
         gsc = GoogleSignIn.getClient(this, gso)
         val acct = GoogleSignIn.getLastSignedInAccount(this)
-        person_name = findViewById(R.id.ID_name)
         if (acct!= null) {
             val personName = acct.displayName;
-            person_name.text = "Witaj " + personName
-
+            val actionBar = supportActionBar
+            actionBar?.title = "Witaj " + personName.toString()
         }
 
         return HealthConnectClient.getOrCreate(this@AllActivityScreen)

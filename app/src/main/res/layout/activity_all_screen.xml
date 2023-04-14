@@ -3,27 +3,12 @@
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/grey"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AllActivityScreen">
-    <!--Imie-->
-    <TextView
 
-        android:id="@+id/ID_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="14dp"
-        android:text="name"
-        android:textSize="20sp">
-
-    </TextView>
     <!--Steps-->
-    <!--Date-->
-
     <TextView
         android:background="@color/red"
         android:textColor="@color/white"
@@ -38,53 +23,45 @@
         android:layout_marginBottom="20sp"
         android:gravity="center"
         android:text="steps"
-        android:textSize="20sp">
-
-    </TextView>
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/ID_currnetDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/ID_totalSteps"
         android:layout_marginStart="18dp"
-        android:layout_marginTop="71dp"
         android:layout_marginEnd="18dp"
+        android:layout_marginBottom="55dp"
         android:layout_toStartOf="@+id/ID_nextDay"
         android:layout_toEndOf="@+id/ID_prevDay"
         android:gravity="center"
         android:text="date"
-        android:textSize="17sp">
+        android:textSize="17sp"/>
 
-    </TextView>
     <!--PrevDay-->
     <Button
         android:id="@+id/ID_prevDay"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="50sp"
+        android:layout_above="@+id/ID_totalSteps"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="58dp"
-        android:layout_marginBottom="72dp"
+        android:layout_marginStart="10sp"
+        android:layout_marginBottom="41dp"
         android:text="prev"
-        android:textSize="15sp">
-
-    </Button>
+        android:textSize="15sp"/>
     <!--NextDay-->
     <Button
         android:id="@+id/ID_nextDay"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/ID_totalSteps"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="58dp"
-        android:layout_marginEnd="13dp"
-        android:layout_marginBottom="72dp"
+        android:layout_marginEnd="10sp"
+        android:layout_marginBottom="41dp"
         android:text="next"
-        android:textSize="15sp">
+        android:textSize="15sp"/>
 
-    </Button>
     <!--Sleep-->
 
     <TextView
@@ -101,9 +78,8 @@
         android:layout_marginEnd="10sp"
         android:layout_marginBottom="20sp"
         android:text="sleep"
-        android:textSize="20sp">
+        android:textSize="20sp"/>
 
-    </TextView>
 
     <TextView
         android:background="@color/green"
@@ -119,9 +95,8 @@
         android:layout_marginEnd="10sp"
         android:layout_marginBottom="20sp"
         android:text="hr"
-        android:textSize="20sp">
+        android:textSize="20sp"/>
 
-    </TextView>
 
     <TextView
         android:background="@color/orange"
@@ -135,9 +110,9 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="10sp"
         android:layout_marginEnd="10sp"
-        android:layout_marginBottom="98dp"
+        android:layout_marginBottom="70dp"
         android:text="distance"
-        android:textSize="20sp"></TextView>
+        android:textSize="20sp"/>
 
 
 </RelativeLayout>
