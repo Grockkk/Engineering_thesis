@@ -10,50 +10,25 @@ import java.time.Duration
 import java.time.Instant
 
 class Sleep {
-    /*
-    suspend fun readSleepDuration(healthConnectClient : HealthConnectClient, startTime: Instant, endTime: Instant): String? {
-        val response =
-            healthConnectClient.readRecords(
-                ReadRecordsRequest(
-                    SleepSessionRecord::class,
-                    timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
-                )
-            )
-        for (sleepRecord in response.records) {
-            // Process each exercise record
-            // Optionally pull in sleep stages of the same time range
-            val sleepStageRecords =
-                healthConnectClient
-                    .readRecords(
-                        ReadRecordsRequest(
-                            SleepStageRecord::class,
-                            timeRangeFilter =
-                            TimeRangeFilter.between(sleepRecord.startTime, sleepRecord.endTime)
-                        )
-                    )
-                    .records
-        }
-
-    }
-     */
     suspend fun readSleepDuration(healthConnectClient: HealthConnectClient, startTime: Instant, endTime: Instant): String? {
         val response = healthConnectClient.readRecords(
             ReadRecordsRequest(
                 SleepSessionRecord::class,
-                timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
+                timeRangeFilter = TimeRangeFilter.between(startTime.minusSeconds(86400), endTime.minusSeconds(86400))
             )
         )
-
-        var totalDuration = Duration.ZERO
+        var duration = Duration.ZERO;
         for (sleepRecord in response.records) {
-            val duration = Duration.between(sleepRecord.startTime, sleepRecord.endTime)
-            totalDuration = totalDuration.plus(duration)
+            duration = Duration.between(sleepRecord.startTime, sleepRecord.endTime)
         }
 
-        val hours = totalDuration.toHours()
-        val minutes = totalDuration.toMinutes() % 60
-        val seconds = totalDuration.seconds % 60
+        val hours = duration.toHours()
+        val minutes = duration.toMinutes() % 60
+        return if(hours > 9){
+            String.format("%02d h %02d min", hours, minutes)
+        }else{
+            String.format("%2d h %02d min", hours, minutes)
+        }
 
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds)
     }
 }

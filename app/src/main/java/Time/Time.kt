@@ -26,4 +26,8 @@ class Time() {
         }
     }
 
+    fun setDateToday(){
+        day = LocalDate.now()
+    }
+
 }

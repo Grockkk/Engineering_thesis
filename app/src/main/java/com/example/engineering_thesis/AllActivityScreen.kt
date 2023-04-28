@@ -4,28 +4,40 @@ import Data.*
 import Time.Time
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.health.connect.client.HealthConnectClient
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.tasks.Task
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.*
 
-class AllActivityScreen : AppCompatActivity() {
+
+
+class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener{
 
     private lateinit var gsc: GoogleSignInClient
+    private lateinit var healthConnectClient : HealthConnectClient
     private lateinit var nextDayButton: Button
     private lateinit var prevDayButton: Button
     private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+
+    //initialize textView and buttons
+    private lateinit var stepsView: TextView
+    private lateinit var dateOfTheDayView: TextView
+    private lateinit var sleepView: TextView
+    private lateinit var heartRatView: TextView
+    private lateinit var distanceView: TextView
+
     val time = Time()
     //val cal = BurnCal()
     val dst = Distance()
@@ -41,21 +53,32 @@ class AllActivityScreen : AppCompatActivity() {
         //NavBar
         navBarMenu()
 
-
         // logowanie google
-        val healthConnectClient = InitializeGoogle()
+        healthConnectClient = InitializeGoogle()
 
-        //initialize textView and buttons
-        val stepsView: TextView = findViewById(R.id.ID_totalSteps)
-        val dateOfTheDayView: TextView = findViewById(R.id.ID_currnetDay)
-        val sleepView: TextView = findViewById(R.id.ID_sleep)
-        val heartRatView: TextView = findViewById(R.id.ID_hr)
-        val distanceView: TextView = findViewById(R.id.ID_dist)
+        stepsView = findViewById(R.id.ID_totalSteps)
+        dateOfTheDayView = findViewById(R.id.ID_currnetDay)
+        sleepView = findViewById(R.id.ID_sleep)
+        heartRatView = findViewById(R.id.ID_hr)
+        distanceView = findViewById(R.id.ID_dist)
         //var burnedCal: TextView = findViewById(R.id.burned_cal)
 
+
+
+        //refresh
+        swipeRefreshLayout = findViewById(R.id.ID_swipe)
+        swipeRefreshLayout.setOnRefreshListener(this)
+
+
+        time.setDateToday()
         prevDayButton = findViewById(R.id.ID_prevDay)
         nextDayButton = findViewById(R.id.ID_nextDay)
         dateOfTheDayView.text = time.day.toString()
+
+        swipeRefreshLayout.setOnRefreshListener {
+            // wykonaj kod w momencie odświeżenia
+            onRefresh()
+        }
 
         initializeData(healthConnectClient,stepsView,sleepView,heartRatView,distanceView,dateOfTheDayView)
 
@@ -108,7 +131,6 @@ class AllActivityScreen : AppCompatActivity() {
     @OptIn(DelicateCoroutinesApi::class)
     fun initializeData(healthConnectClient: HealthConnectClient, steps: TextView, sleep: TextView, heartRat: TextView, distance: TextView, dateOfTheDay:TextView){
         GlobalScope.launch(Dispatchers.Main) {
-
             val numberOfSteps = st.readSteps(healthConnectClient, time.getStartTime(), time.getEndTime())
             val timeOfSleep = sl.readSleepDuration(healthConnectClient, time.getStartTime(), time.getEndTime())
             val meanBPM = hr.aggregateHeartRate(healthConnectClient, time.getStartTime(), time.getEndTime())
@@ -161,6 +183,15 @@ class AllActivityScreen : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onRefresh() {
+        refreshData()
+        swipeRefreshLayout.isRefreshing = false
+    }
+
+    private fun refreshData() {
+        initializeData(healthConnectClient,stepsView,sleepView,heartRatView,distanceView,dateOfTheDayView)
     }
 }
 

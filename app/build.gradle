@@ -52,4 +52,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation "androidx.health.connect:connect-client:1.0.0-alpha11"
     implementation "com.google.android.gms:play-services-auth:20.5.0"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 }
