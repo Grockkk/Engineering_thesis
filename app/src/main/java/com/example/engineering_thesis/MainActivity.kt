@@ -40,7 +40,12 @@ class MainActivity : AppCompatActivity() {
         HealthPermission.getReadPermission(SleepSessionRecord::class),
 
         HealthPermission.getWritePermission(SleepStageRecord::class),
-        HealthPermission.getReadPermission(SleepStageRecord::class)
+        HealthPermission.getReadPermission(SleepStageRecord::class),
+
+        HealthPermission.getWritePermission(TotalCaloriesBurnedRecord::class),
+        HealthPermission.getReadPermission(TotalCaloriesBurnedRecord::class)
+
+
     )
     private lateinit var healthConnectClient: HealthConnectClient
 
@@ -63,6 +68,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+    
     private suspend fun checkPermissionsAndRun() {
         val grantedPermissions = healthConnectClient.permissionController.getGrantedPermissions()
         if (grantedPermissions.containsAll(PERMISSIONS)) {

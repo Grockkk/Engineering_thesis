@@ -6,9 +6,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -29,7 +27,7 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
     private lateinit var prevDayButton: Button
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-
+    private lateinit var progressBarSteps: ProgressBar
     //initialize textView and buttons
     private lateinit var stepsView: TextView
     private lateinit var dateOfTheDayView: TextView
@@ -37,8 +35,12 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
     private lateinit var heartRatView: TextView
     private lateinit var distanceView: TextView
 
+    private lateinit var relativeLayoutSteps: RelativeLayout
+    private lateinit var relativeLayoutSleep: RelativeLayout
+    private lateinit var relativeLayoutHeartRatio: RelativeLayout
+
     private val time = Time()
-    //val cal = BurnCal()
+    val cal = BurnCal()
     private val dst = Distance()
     private val hr = HeartRatio()
     private val st = Steps()
@@ -60,8 +62,12 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         sleepView = findViewById(R.id.ID_sleep)
         heartRatView = findViewById(R.id.ID_hr)
         distanceView = findViewById(R.id.ID_dist)
+        progressBarSteps = findViewById(R.id.stats_progressbar)
         //var burnedCal: TextView = findViewById(R.id.burned_cal)
 
+        relativeLayoutSleep = findViewById(R.id.sleep_Layout)
+        relativeLayoutSteps = findViewById(R.id.steps_Layout)
+        relativeLayoutHeartRatio = findViewById(R.id.heart_ratio_Layout)
         //refresh
         swipeRefreshLayout = findViewById(R.id.ID_swipe)
         swipeRefreshLayout.setOnRefreshListener(this)
@@ -89,20 +95,16 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
             }
         // koniec przycisków ruchu dat
 
-        stepsView.setOnClickListener(){
-
+        relativeLayoutSleep.setOnClickListener(){
+            Toast.makeText(applicationContext,"nice",Toast.LENGTH_SHORT).show()
         }
 
-        sleepView.setOnClickListener(){
-
+        relativeLayoutSteps.setOnClickListener(){
+            Toast.makeText(applicationContext,"nice",Toast.LENGTH_SHORT).show()
         }
 
-        heartRatView.setOnClickListener(){
-
-        }
-
-        distanceView.setOnClickListener(){
-
+        relativeLayoutHeartRatio.setOnClickListener(){
+            Toast.makeText(applicationContext,"nice",Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -122,6 +124,7 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
 
         return HealthConnectClient.getOrCreate(this@AllActivityScreen)
     }
+
     @SuppressLint("SetTextI18n")
     @OptIn(DelicateCoroutinesApi::class)
     fun initializeData(){
@@ -134,15 +137,21 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
             runOnUiThread {
                 dateOfTheDayView.text = time.day.toString()
                 stepsView.text = "Ilość kroków tego dnia: " + numberOfSteps.toString()
-                sleepView.text = "Całkowity czas snu: " + timeOfSleep
+                sleepView.text = "Całkowity czas snu: $timeOfSleep"
                 heartRatView.text = "Średne bicie serca to: " + hr.getMeanHeartRate().toString()+ " BPM"
                 distanceView.text = "Przebyta odległość: " + totalDistance.toString() + " km"
                 //burnedCal.text = calories.toString()
+                if (numberOfSteps != null) {
+                    progressBarSteps.progress = numberOfSteps
+                }else{
+                    progressBarSteps.progress = 0
+                }
+
             }
         }
     }
 
-    fun navBarMenu(){
+    private fun navBarMenu(){
         val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayout)
         val navView: NavigationView = findViewById(R.id.naView)
         toggle = ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close)
@@ -153,10 +162,10 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         navView.setNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.ID_settings -> Toast.makeText(applicationContext,"nice",Toast.LENGTH_SHORT).show()
-                R.id.ID_profile -> Toast.makeText(applicationContext,"nice",Toast.LENGTH_SHORT).show()
+                R.id.ID_profile -> navigateToProfile()
                 R.id.ID_addAct -> Toast.makeText(applicationContext,"nice",Toast.LENGTH_SHORT).show()
                 R.id.ID_startAct -> Toast.makeText(applicationContext,"nice",Toast.LENGTH_SHORT).show()
-                R.id.ID_singOut -> singOut();
+                R.id.ID_singOut -> singOut()
             }
             true
         }
@@ -183,6 +192,12 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
     override fun onRefresh() {
         initializeData()
         swipeRefreshLayout.isRefreshing = false
+    }
+
+    private fun navigateToProfile() {
+        finish()
+        val intent = Intent(this, YourProfileActivity::class.java)
+        startActivity(intent)
     }
 }
 
