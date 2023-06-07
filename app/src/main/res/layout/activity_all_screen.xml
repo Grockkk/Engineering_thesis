@@ -9,126 +9,139 @@
     android:layout_height="match_parent"
     tools:context=".AllActivityScreen">
 
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/ID_swipe">
 
+            <ScrollView
+                android:id="@+id/scrollView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
             <!--Steps-->
-            <TextView
-                android:id="@+id/ID_totalSteps"
-                android:layout_width="match_parent"
-                android:layout_height="108dp"
-                android:layout_marginBottom="20sp"
-                android:background="@color/red"
-                android:gravity="center"
-                android:text="steps"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:layout_marginLeft="10sp"
-                android:layout_marginRight="10sp"
-                app:layout_constraintBottom_toTopOf="@+id/ID_hr"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/ID_currnetDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="35sp"
-                android:gravity="center"
-                android:text="date"
-                android:textSize="17sp"
-                app:layout_constraintBottom_toTopOf="@+id/ID_totalSteps"
-                app:layout_constraintEnd_toStartOf="@+id/ID_nextDay"
-                app:layout_constraintStart_toEndOf="@+id/ID_prevDay" />
+                    <TextView
+                    android:id="@+id/ID_totalSteps"
+                    android:layout_width="match_parent"
+                    android:layout_height="108dp"
+                    android:layout_marginBottom="20sp"
+                    android:background="@color/red"
+                    android:gravity="center"
+                    android:text="steps"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="10sp"
+                    app:layout_constraintBottom_toTopOf="@+id/ID_hr"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
 
-            <!--PrevDay-->
-            <Button
-                android:id="@+id/ID_prevDay"
-                android:layout_width="wrap_content"
-                android:layout_height="50sp"
-                android:layout_above="@+id/ID_totalSteps"
-                android:layout_marginStart="10sp"
-                android:layout_marginBottom="24sp"
-                android:text="prev"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toTopOf="@+id/ID_totalSteps"
-                app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:id="@+id/ID_currnetDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="35sp"
+                    android:gravity="center"
+                    android:text="date"
+                    android:textSize="17sp"
+                    app:layout_constraintBottom_toTopOf="@+id/ID_totalSteps"
+                    app:layout_constraintEnd_toStartOf="@+id/ID_nextDay"
+                    app:layout_constraintStart_toEndOf="@+id/ID_prevDay" />
 
-            <!--NextDay-->
-            <Button
-                android:id="@+id/ID_nextDay"
-                android:layout_width="wrap_content"
-                android:layout_height="50sp"
-                android:layout_above="@+id/ID_totalSteps"
-                android:layout_marginEnd="10sp"
-                android:layout_marginBottom="24sp"
-                android:text="next"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toTopOf="@+id/ID_totalSteps"
-                app:layout_constraintEnd_toEndOf="parent" />
-            <!--Sleep-->
-            <TextView
-                android:id="@+id/ID_sleep"
-                android:layout_width="match_parent"
-                android:layout_marginLeft="10sp"
-                android:layout_marginRight="10sp"
-                android:layout_height="106sp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginBottom="96dp"
-                android:background="@color/blue"
-                android:gravity="center"
-                android:text="sleep"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:layout_editor_absoluteX="10dp" />
+                <!--PrevDay-->
+                <Button
+                    android:id="@+id/ID_prevDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50sp"
+                    android:layout_above="@+id/ID_totalSteps"
+                    android:layout_marginStart="10sp"
+                    android:layout_marginBottom="24sp"
+                    android:text="prev"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toTopOf="@+id/ID_totalSteps"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/ID_hr"
-                android:layout_height="106sp"
-                android:layout_width="match_parent"
-                android:layout_marginLeft="10sp"
-                android:layout_marginRight="10sp"
-                android:layout_above="@+id/ID_dist"
-                android:layout_marginBottom="20sp"
-                android:background="@color/green"
-                android:gravity="center"
-                android:text="hr"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/ID_dist"
-                tools:layout_editor_absoluteX="10dp" />
+                <!--NextDay-->
+                <Button
+                    android:id="@+id/ID_nextDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50sp"
+                    android:layout_above="@+id/ID_totalSteps"
+                    android:layout_marginEnd="10sp"
+                    android:layout_marginBottom="24sp"
+                    android:text="next"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toTopOf="@+id/ID_totalSteps"
+                    app:layout_constraintEnd_toEndOf="parent" />
+                <!--Sleep-->
 
-            <TextView
-                android:id="@+id/ID_dist"
-                android:layout_width="match_parent"
-                android:layout_marginLeft="10sp"
-                android:layout_marginRight="10sp"
-                android:layout_height="106sp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="20sp"
-                android:background="@color/orange"
-                android:gravity="center"
-                android:text="distance"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/ID_sleep"
-                tools:layout_editor_absoluteX="10dp" />
+                    <TextView
+                    android:id="@+id/ID_hr"
+                    android:layout_height="106sp"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="10sp"
+                    android:layout_above="@+id/ID_dist"
+                    android:layout_marginBottom="20sp"
+                    android:background="@color/green"
+                    android:gravity="center"
+                    android:text="hr"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                        app:layout_constraintBottom_toTopOf="@+id/ID_dist"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteX="10dp" />
+
+                <TextView
+                    android:id="@+id/ID_dist"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="10sp"
+                    android:layout_height="106sp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="20sp"
+                    android:background="@color/orange"
+                    android:gravity="center"
+                    android:text="distance"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toTopOf="@+id/ID_sleep"
+                    tools:layout_editor_absoluteX="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/ID_sleep"
+                        android:layout_width="match_parent"
+                        android:layout_marginLeft="10sp"
+                        android:layout_marginRight="10sp"
+                        android:layout_height="106sp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginBottom="96dp"
+                        android:background="@color/blue"
+                        android:gravity="center"
+                        android:text="sleep"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        tools:layout_editor_absoluteX="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
+            </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
