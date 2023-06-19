@@ -14,7 +14,7 @@ class Sleep {
         val response = healthConnectClient.readRecords(
             ReadRecordsRequest(
                 SleepSessionRecord::class,
-                timeRangeFilter = TimeRangeFilter.between(startTime.minusSeconds(86400), endTime.minusSeconds(86400))
+                timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
             )
         )
         var duration = Duration.ZERO;

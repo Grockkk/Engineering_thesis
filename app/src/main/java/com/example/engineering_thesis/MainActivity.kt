@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-    
+
     private suspend fun checkPermissionsAndRun() {
         val grantedPermissions = healthConnectClient.permissionController.getGrantedPermissions()
         if (grantedPermissions.containsAll(PERMISSIONS)) {

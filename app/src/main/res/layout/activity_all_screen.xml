@@ -93,6 +93,7 @@
                             android:indeterminate="false"
                             android:max="8000"
                             android:progressDrawable="@drawable/stats_progress"
+
                             android:layout_alignParentEnd="true"/>
 
                         <ImageView
@@ -100,10 +101,10 @@
                             android:layout_height="30sp"
                             android:layout_alignStart="@+id/stats_progressbar"
                             android:layout_alignEnd="@+id/stats_progressbar"
+                            android:layout_centerInParent="true"
                             android:layout_marginStart="0sp"
                             android:layout_marginEnd="0sp"
-                            android:src="@drawable/steps"
-                            android:layout_centerInParent="true"/>
+                            android:src="@drawable/steps" />
 
 
 
@@ -113,7 +114,7 @@
                     <RelativeLayout
                         android:id="@+id/sleep_Layout"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/steps_Layout"
                         android:layout_marginTop="40dp"
                         android:layout_marginLeft="10sp"
@@ -133,7 +134,7 @@
                     <RelativeLayout
                         android:id="@+id/heart_ratio_Layout"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/sleep_Layout"
                         android:layout_marginTop="40dp"
                         android:layout_marginLeft="10sp"
