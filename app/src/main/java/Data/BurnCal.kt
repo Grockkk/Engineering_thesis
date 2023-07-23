@@ -4,6 +4,7 @@ import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
 import androidx.health.connect.client.records.StepsRecord
+import androidx.health.connect.client.records.TotalCaloriesBurnedRecord
 import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
@@ -26,9 +27,9 @@ class BurnCal {
                         timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
                     )
                 )
-        if (response[ActiveCaloriesBurnedRecord.ACTIVE_CALORIES_TOTAL] == null){
+        if (response[TotalCaloriesBurnedRecord.ENERGY_TOTAL] == null){
             return 0
         }
-            return response[ActiveCaloriesBurnedRecord.ACTIVE_CALORIES_TOTAL]
+            return response[TotalCaloriesBurnedRecord.ENERGY_TOTAL]
     }
 }

@@ -23,8 +23,9 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
 
     private lateinit var gsc: GoogleSignInClient
     private lateinit var healthConnectClient : HealthConnectClient
-    private lateinit var nextDayButton: Button
-    private lateinit var prevDayButton: Button
+    private lateinit var nextDayButton: ImageButton
+    private lateinit var prevDayButton: ImageButton
+    private lateinit var HeartIcon: ImageView
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var progressBarSteps: ProgressBar
@@ -34,13 +35,14 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
     private lateinit var sleepView: TextView
     private lateinit var heartRatView: TextView
     private lateinit var distanceView: TextView
+    //private lateinit var caloriesView: TextView
 
     private lateinit var relativeLayoutSteps: RelativeLayout
     private lateinit var relativeLayoutSleep: RelativeLayout
     private lateinit var relativeLayoutHeartRatio: RelativeLayout
 
     private val time = Time()
-    val cal = BurnCal()
+    private val cal = BurnCal()
     private val dst = Distance()
     private val hr = HeartRatio()
     private val st = Steps()
@@ -59,9 +61,11 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
 
         stepsView = findViewById(R.id.ID_totalSteps)
         dateOfTheDayView = findViewById(R.id.ID_currnetDay)
+        HeartIcon = findViewById(R.id.ID_Heart_icon)
         sleepView = findViewById(R.id.ID_sleep)
         heartRatView = findViewById(R.id.ID_hr)
         distanceView = findViewById(R.id.ID_dist)
+        //caloriesView = findViewById(R.id.ID_calories)
         progressBarSteps = findViewById(R.id.stats_progressbar)
         //var burnedCal: TextView = findViewById(R.id.burned_cal)
 
@@ -77,7 +81,6 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         dateOfTheDayView.text = time.day.toString()
 
         swipeRefreshLayout.setOnRefreshListener {
-            // wykonaj kod w momencie odświeżenia
             onRefresh()
         }
 
@@ -131,22 +134,16 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         GlobalScope.launch(Dispatchers.Main) {
             val numberOfSteps = st.readSteps(healthConnectClient, time.getStartTime(), time.getEndTime())
             val timeOfSleep = sl.readSleepDuration(healthConnectClient, time.getStartTime(), time.getEndTime())
-            val meanBPM = hr.aggregateHeartRate(healthConnectClient, time.getStartTime(), time.getEndTime())
+            hr.aggregateHeartRate(healthConnectClient, time.getStartTime(), time.getEndTime())
             val totalDistance = dst.readDistance(healthConnectClient, time.getStartTime(), time.getEndTime())
             //val calories = cal.readBurnedCalories(healthConnectClient, time.getStartTime(), time.getEndTime())
             runOnUiThread {
                 dateOfTheDayView.text = time.day.toString()
-                stepsView.text = "Ilość kroków tego dnia: " + numberOfSteps.toString()
-                sleepView.text = "Całkowity czas snu: $timeOfSleep"
-                heartRatView.text = "Średne bicie serca to: " + hr.getMeanHeartRate().toString()+ " BPM"
-                distanceView.text = "Przebyta odległość: " + totalDistance.toString() + " km"
-                //burnedCal.text = calories.toString()
-                if (numberOfSteps != null) {
-                    progressBarSteps.progress = numberOfSteps
-                }else{
-                    progressBarSteps.progress = 0
-                }
-
+                stepsView.text = numberOfSteps.toString()
+                sleepView.text = timeOfSleep.toString()
+                heartRatView.text = hr.getMeanHeartRate().toString()+ " BPM"
+                distanceView.text = totalDistance.toString() + " km"
+                //caloriesView.text = calories.toString()
             }
         }
     }
