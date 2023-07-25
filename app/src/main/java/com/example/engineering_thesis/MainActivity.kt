@@ -43,7 +43,13 @@ class MainActivity : AppCompatActivity() {
         HealthPermission.getReadPermission(SleepStageRecord::class),
 
         HealthPermission.getWritePermission(TotalCaloriesBurnedRecord::class),
-        HealthPermission.getReadPermission(TotalCaloriesBurnedRecord::class)
+        HealthPermission.getReadPermission(TotalCaloriesBurnedRecord::class),
+
+        HealthPermission.getWritePermission(HeightRecord::class),
+        HealthPermission.getReadPermission(HeightRecord::class),
+
+        HealthPermission.getWritePermission(WeightRecord::class),
+        HealthPermission.getReadPermission(WeightRecord::class)
 
 
     )
@@ -59,9 +65,10 @@ class MainActivity : AppCompatActivity() {
             .build()
         gsc = GoogleSignIn.getClient(this, gso)
 
+        var globalAge = GlobalClass()
+
         googleBtn = findViewById(R.id.google_btn)
         googleBtn.setOnClickListener {
-
             lifecycleScope.launch {
                 checkPermissionsAndRun()
             }

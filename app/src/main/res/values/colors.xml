@@ -7,7 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="red">#ff0000</color>
+    <color name="red">#E30C0C</color>
     <color name="orange">#f47b36</color>
     <color name="blue">#5fb3ff</color>
     <color name="light_blue">#5fb3ff</color>
@@ -16,5 +16,13 @@
     <color name="grey">#898da5</color>
     <color name="bright_green">#b2f436</color>
     <color name="green">#5d6e10</color>
+
+
+    <!-- Background colors for activities in all activity screen -->
+    <color name="red_back">#EF7168</color>
+    <color name="orange_back">#E69D50</color>
+    <color name="yellow_back">#F8D434</color>
+
+
 
 </resources>

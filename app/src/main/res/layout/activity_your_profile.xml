@@ -110,15 +110,16 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:hint="Weight"
+                                android:text="Birthday"
                                 android:textColor="@color/grey"
                                 android:textSize="18sp" />
 
                             <TextView
+                                android:id="@+id/ID_age"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="TextView"
+                                android:hint="age"
                                 android:textAlignment="textEnd"
                                 android:textColor="@color/grey"
                                 android:textSize="18sp" />
@@ -143,15 +144,16 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:hint="Weight"
+                                android:text="Weight"
                                 android:textColor="@color/grey"
                                 android:textSize="18sp" />
 
                             <TextView
+                                android:id="@+id/ID_Weight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="TextView"
+                                android:hint="Weight"
                                 android:textAlignment="textEnd"
                                 android:textColor="@color/grey"
                                 android:textSize="18sp" />
@@ -176,15 +178,16 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:hint="Weight"
+                                android:text="Height"
                                 android:textColor="@color/grey"
                                 android:textSize="18sp" />
 
                             <TextView
+                                android:id="@+id/ID_Height"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="TextView"
+                                android:hint="Height"
                                 android:textAlignment="textEnd"
                                 android:textColor="@color/grey"
                                 android:textSize="18sp" />
@@ -192,71 +195,6 @@
 
                         </LinearLayout>
 
-                        <View
-                            android:id="@+id/view4"
-                            android:layout_width="match_parent"
-                            android:layout_height="1sp"
-                            android:layout_margin="10sp"
-                            android:background="@color/grey" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10sp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:hint="Weight"
-                                android:textColor="@color/grey"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="TextView"
-                                android:textAlignment="textEnd"
-                                android:textColor="@color/grey"
-                                android:textSize="18sp" />
-
-
-                        </LinearLayout>
-
-                        <View
-                            android:id="@+id/view3"
-                            android:layout_width="match_parent"
-                            android:layout_height="1sp"
-                            android:layout_margin="10sp"
-                            android:background="@color/grey" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10sp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:hint="Weight"
-                                android:textColor="@color/grey"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="TextView"
-                                android:textAlignment="textEnd"
-                                android:textColor="@color/grey"
-                                android:textSize="18sp" />
-
-
-                        </LinearLayout>
 
                     </LinearLayout>
 
