@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_200">#DBC8F3</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
@@ -12,16 +12,18 @@
     <color name="blue">#5fb3ff</color>
     <color name="light_blue">#5fb3ff</color>
     <color name="dark_blue">#2049DB</color>
-    <color name="yellow">#f4d736</color>
+    <color name="yellow">#F3D218</color>
     <color name="grey">#898da5</color>
     <color name="bright_green">#b2f436</color>
     <color name="green">#5d6e10</color>
+    <color name="purple">#B064C0</color>
+    <color name="global_back">#F1E8E2</color>
 
 
     <!-- Background colors for activities in all activity screen -->
     <color name="red_back">#EF7168</color>
     <color name="orange_back">#E69D50</color>
-    <color name="yellow_back">#F8D434</color>
+    <color name="purple_back">#6B74D5</color>
 
 
 

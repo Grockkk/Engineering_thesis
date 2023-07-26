@@ -31,12 +31,13 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var progressBarSteps: ProgressBar
     //initialize textView and buttons
-    //private lateinit var stepsView: TextView
+    private lateinit var stepsView: TextView
     private lateinit var dateOfTheDayView: TextView
     private lateinit var sleepView: TextView
     private lateinit var heartRatView: TextView
-    //private lateinit var distanceView: TextView
-    //private lateinit var caloriesView: TextView
+    private lateinit var distanceView: TextView
+    private lateinit var caloriesView: TextView
+
 
     private lateinit var relativeLayoutSteps: RelativeLayout
     private lateinit var relativeLayoutSleep: RelativeLayout
@@ -61,15 +62,14 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         // logowanie google
         healthConnectClient = initializeGoogle()
 
-        //stepsView = findViewById(R.id.ID_totalSteps)
+        stepsView = findViewById(R.id.ID_totalSteps)
         dateOfTheDayView = findViewById(R.id.ID_currnetDay)
         //HeartIcon = findViewById(R.id.ID_Heart_icon)
         sleepView = findViewById(R.id.ID_sleep)
         heartRatView = findViewById(R.id.ID_hr)
-        //distanceView = findViewById(R.id.ID_dist)
-        //caloriesView = findViewById(R.id.ID_calories)
+        distanceView = findViewById(R.id.ID_dist)
+        caloriesView = findViewById(R.id.ID_calories)
         //progressBarSteps = findViewById(R.id.stats_progressbar)
-        //var burnedCal: TextView = findViewById(R.id.burned_cal)
 
         relativeLayoutSleep = findViewById(R.id.sleep_Layout)
         relativeLayoutSteps = findViewById(R.id.steps_Layout)
@@ -139,14 +139,14 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
             val timeOfSleep = sl.readSleepDuration(healthConnectClient, time.getStartTime(), time.getEndTime())
             hr.aggregateHeartRate(healthConnectClient, time.getStartTime(), time.getEndTime())
             val totalDistance = dst.readDistance(healthConnectClient, time.getStartTime(), time.getEndTime())
-            //val calories = cal.readBurnedCalories(healthConnectClient, time.getStartTime(), time.getEndTime())
+            val calories = cal.readBurnedCalories(healthConnectClient, time.getStartTime(), time.getEndTime())
             runOnUiThread {
                 dateOfTheDayView.text = time.day.toString()
-                //stepsView.text = numberOfSteps.toString()
+                stepsView.text = numberOfSteps.toString()
                 sleepView.text = timeOfSleep.toString()
                 heartRatView.text = hr.getMeanHeartRate().toString()+ " BPM"
-                //distanceView.text = totalDistance.toString() + " km"
-                //caloriesView.text = calories.toString()
+                distanceView.text = totalDistance.toString() + " km"
+                caloriesView.text = calories
             }
         }
     }

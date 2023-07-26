@@ -9,14 +9,19 @@ import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 import androidx.health.connect.client.units.Mass
+import com.example.engineering_thesis.GlobalClass
 import java.time.Duration
 import java.time.Instant
+import java.time.LocalDate
+import java.time.Period
 import kotlin.math.round
 
 class WeightHeight {
     var Height: Double = 0.0
     var Weight: Double = 0.0
+    var globaAge = GlobalClass()
 
+    var birthDate = globaAge.birthday
 
     suspend fun readWeightAndHeight(healthConnectClient: HealthConnectClient, startTime: Instant, endTime: Instant)  {
         val responseWeight = healthConnectClient.readRecords(
@@ -49,4 +54,5 @@ class WeightHeight {
 
         }
     }
+
 }

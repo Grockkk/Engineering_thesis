@@ -19,17 +19,17 @@ class BurnCal {
         healthConnectClient: HealthConnectClient,
         startTime: Instant,
         endTime: Instant
-    ): Comparable<*>? {
+    ): String {
             val response =
                 healthConnectClient.aggregate(
                     AggregateRequest(
-                        metrics = setOf(),
+                        metrics = setOf(TotalCaloriesBurnedRecord.ENERGY_TOTAL),
                         timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
                     )
                 )
         if (response[TotalCaloriesBurnedRecord.ENERGY_TOTAL] == null){
-            return 0
+            return "0"
         }
-            return response[TotalCaloriesBurnedRecord.ENERGY_TOTAL]
+            return response[TotalCaloriesBurnedRecord.ENERGY_TOTAL].toString()
     }
 }
