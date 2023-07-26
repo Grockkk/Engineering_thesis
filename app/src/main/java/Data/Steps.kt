@@ -8,7 +8,7 @@ import java.time.Instant
 
 class Steps {
 
-    suspend fun readSteps(healthConnectClient : HealthConnectClient, startTime: Instant, endTime: Instant): Int? {
+    suspend fun readSteps(healthConnectClient : HealthConnectClient, startTime: Instant, endTime: Instant): Int {
         val response =
             healthConnectClient.aggregate(
                 AggregateRequest(
@@ -21,7 +21,7 @@ class Steps {
             return 0
         }
         else{
-            return response[StepsRecord.COUNT_TOTAL]?.toInt()
+            return response[StepsRecord.COUNT_TOTAL]!!.toInt()
         }
     }
 }
