@@ -22,7 +22,7 @@ class WeightHeight {
         val responseWeight = healthConnectClient.readRecords(
             ReadRecordsRequest(
                 WeightRecord::class,
-                timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
+                timeRangeFilter = TimeRangeFilter.between(startTime.minusSeconds(31556926*5), endTime)
             )
         )
         for (weightRecord in responseWeight.records) {
@@ -37,7 +37,7 @@ class WeightHeight {
         val responseHeight = healthConnectClient.readRecords(
             ReadRecordsRequest(
                 HeightRecord::class,
-                timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
+                timeRangeFilter = TimeRangeFilter.between(startTime.minusSeconds(31556926*5), endTime)
             )
         )
         for (heightRecord in responseHeight.records) {

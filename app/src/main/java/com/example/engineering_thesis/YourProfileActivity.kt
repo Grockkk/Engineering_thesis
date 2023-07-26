@@ -88,7 +88,8 @@ class YourProfileActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         GlobalScope.launch(Dispatchers.Main) {
             wh.readWeightAndHeight(healthConnectClient, time.getStartTime(), time.getEndTime())
             weightView.text = wh.Weight.toString()
-            heightView.text = wh.Height.toString()
+            heightView.text = ("%.0f".format(wh.Height*100))
+
         }
     }
 
