@@ -69,7 +69,7 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         heartRatView = findViewById(R.id.ID_hr)
         distanceView = findViewById(R.id.ID_dist)
         caloriesView = findViewById(R.id.ID_calories)
-        //progressBarSteps = findViewById(R.id.stats_progressbar)
+        progressBarSteps = findViewById(R.id.circularProgressBar)
 
         relativeLayoutSleep = findViewById(R.id.sleep_Layout)
         relativeLayoutSteps = findViewById(R.id.steps_Layout)
@@ -141,6 +141,7 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
             val totalDistance = dst.readDistance(healthConnectClient, time.getStartTime(), time.getEndTime())
             val calories = cal.readBurnedCalories(healthConnectClient, time.getStartTime(), time.getEndTime())
             runOnUiThread {
+                progressBarSteps.progress = numberOfSteps
                 dateOfTheDayView.text = time.day.toString()
                 stepsView.text = numberOfSteps.toString()
                 sleepView.text = timeOfSleep.toString()
