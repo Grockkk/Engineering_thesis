@@ -31,6 +31,7 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var progressBarSteps: ProgressBar
     //initialize textView and buttons
+    private lateinit var stepsRemainingView: TextView
     private lateinit var stepsView: TextView
     private lateinit var dateOfTheDayView: TextView
     private lateinit var sleepView: TextView
@@ -65,6 +66,7 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         stepsView = findViewById(R.id.ID_totalSteps)
         dateOfTheDayView = findViewById(R.id.ID_currnetDay)
         //HeartIcon = findViewById(R.id.ID_Heart_icon)
+        stepsRemainingView = findViewById(R.id.ID_stepRemaining)
         sleepView = findViewById(R.id.ID_sleep)
         heartRatView = findViewById(R.id.ID_hr)
         distanceView = findViewById(R.id.ID_dist)
@@ -144,6 +146,11 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
                 progressBarSteps.progress = numberOfSteps
                 dateOfTheDayView.text = time.day.toString()
                 stepsView.text = numberOfSteps.toString()
+                if(numberOfSteps >= 8000){
+                    stepsRemainingView.text = "0"
+                }else{
+                    stepsRemainingView.text = (8000 - numberOfSteps).toString()
+                }
                 sleepView.text = timeOfSleep.toString()
                 heartRatView.text = hr.getMeanHeartRate().toString()+ " BPM"
                 distanceView.text = totalDistance.toString() + " km"
