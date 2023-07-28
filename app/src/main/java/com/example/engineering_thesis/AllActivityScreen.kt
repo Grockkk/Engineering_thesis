@@ -18,6 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.navigation.NavigationView
+import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import kotlinx.coroutines.*
 import java.util.*
 
@@ -31,7 +32,7 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
     private lateinit var HeartIcon: ImageView
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    private lateinit var progressBarSteps: ProgressBar
+    private lateinit var progressBarSteps: CircularProgressBar
     //initialize textView and buttons
     private lateinit var stepsRemainingView: TextView
     private lateinit var stepsView: TextView
@@ -54,6 +55,7 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
     private val st = Steps()
     private val sl = Sleep()
 
+    @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("MissingInflatedId", "SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -146,18 +148,18 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
             val totalDistance = dst.readDistance(healthConnectClient, time.getStartTime(), time.getEndTime())
             val calories = cal.readBurnedCalories(healthConnectClient, time.getStartTime(), time.getEndTime())
             runOnUiThread {
-                progressBarSteps.progress = numberOfSteps
+                progressBarSteps.progress = numberOfSteps.toFloat()
                 dateOfTheDayView.text = time.day.toString()
                 stepsView.text = numberOfSteps.toString()
                 if(numberOfSteps >= 8000){
-                    stepsRemainingView.text = "0"
+                    stepsRemainingView.text = 0.toString()
                 }else{
                     stepsRemainingView.text = (8000 - numberOfSteps).toString()
                 }
                 sleepView.text = timeOfSleep.toString()
                 heartRatView.text = hr.getMeanHeartRate().toString()+ " BPM"
                 distanceView.text = totalDistance.toString() + " km"
-                caloriesView.text = calories
+                caloriesView.text = calories + "kcal"
             }
         }
     }

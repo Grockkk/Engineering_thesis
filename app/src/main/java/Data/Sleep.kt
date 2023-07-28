@@ -31,7 +31,7 @@ class Sleep {
                 val hours = response[SleepSessionRecord.SLEEP_DURATION_TOTAL]?.toHours()
                 val minutes = response[SleepSessionRecord.SLEEP_DURATION_TOTAL]?.toMinutesPart()
 
-                return "$hours h $minutes m"
+                return "$hours" + "h" + "$minutes" + "m"
             }
             else{
                 return "brak pomiaru"

@@ -27,9 +27,12 @@ class BurnCal {
                         timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
                     )
                 )
-        if (response[TotalCaloriesBurnedRecord.ENERGY_TOTAL] == null){
+
+        val kcal = response[TotalCaloriesBurnedRecord.ENERGY_TOTAL]
+        if (kcal == null){
             return "0"
         }
-            return response[TotalCaloriesBurnedRecord.ENERGY_TOTAL].toString()
+        return "%.0f".format(kcal.inKilocalories)
+
     }
 }
