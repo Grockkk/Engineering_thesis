@@ -15,6 +15,11 @@ class Time() {
     fun getEndTime(): Instant{
         return Instant.from((LocalDateTime.of(day, LocalTime.MAX)).toInstant(ZoneOffset.UTC))
     }
+
+    fun getToday(): Instant{
+        return Instant.from((LocalDateTime.of(LocalDate.now(), LocalTime.MAX)).toInstant(ZoneOffset.UTC))
+    }
+
     fun incrDay() {
         Day += 1;
         day = LocalDate.now().minusDays(Day)

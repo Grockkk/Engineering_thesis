@@ -4,12 +4,17 @@ import Data.WeightHeight
 import Time.Time
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.Window
 import android.widget.Button
 import android.widget.DatePicker
+import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -69,7 +74,7 @@ class YourProfileActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
 
         healthConnectClient = initializeGoogle()
 
-        ageView.text = globalAge.birthday.toString()
+        ageView.text = globalAge.birthday
 
         val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
         val birthday = sharedPreferences.getString("birthday", null)
@@ -79,26 +84,53 @@ class YourProfileActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         }
 
         initializeData()
-        pickDate()
-    }
-
-    @SuppressLint("SetTextI18n")
-    @OptIn(DelicateCoroutinesApi::class)
-    fun initializeData(){
-        GlobalScope.launch(Dispatchers.Main) {
-            wh.readWeightAndHeight(healthConnectClient, time.getStartTime(), time.getEndTime())
-            weightView.text = wh.Weight.toString()
-            heightView.text = ("%.0f".format(wh.Height*100))
-
+        dataBtn.setOnClickListener{
+            showCustomDialogBox()
         }
     }
 
-    private fun pickDate() {
-        dataBtn.setOnClickListener{
-            getDateCalendar()
 
+
+    private fun showCustomDialogBox() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.change_data_dialog)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val btnBirth: Button = dialog.findViewById(R.id.ID_changeDateBtn)
+        val btnSubmit: Button = dialog.findViewById(R.id.ID_submit)
+        val heightPicker: NumberPicker = dialog.findViewById(R.id.ID_changeHeight)
+        val widthPicker: NumberPicker = dialog.findViewById(R.id.ID_changeWidth)
+
+        widthPicker.minValue = 0
+        widthPicker.maxValue = 500
+        widthPicker.value = (wh.Weight).toInt()
+
+
+        heightPicker.minValue = 0
+        heightPicker.maxValue = 500
+        heightPicker.value = (wh.Height * 100).toInt()
+
+        btnBirth.setOnClickListener{
+            getDateCalendar()
             DatePickerDialog(this,this,year,month,day).show()
         }
+
+        btnSubmit.setOnClickListener{
+            var h = (heightPicker.value).toDouble()
+            h /= 100
+            val w = (widthPicker.value).toDouble()
+
+            GlobalScope.launch(Dispatchers.Main) {
+                wh.writeWeightInput(healthConnectClient,w)
+                wh.writeHeightInput(healthConnectClient,h)
+            }
+            initializeData()
+            Toast.makeText(applicationContext,"Data has been changed",Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     private fun getDateCalendar(){
@@ -149,5 +181,16 @@ class YourProfileActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         val editor = sharedPreferences.edit()
         editor.putString("birthday", GlobalClass.instance.birthday)
         editor.apply()
+    }
+
+    @SuppressLint("SetTextI18n")
+    @OptIn(DelicateCoroutinesApi::class)
+    fun initializeData(){
+        GlobalScope.launch(Dispatchers.Main) {
+            wh.readWeightAndHeight(healthConnectClient, time.getStartTime(), time.getEndTime())
+            weightView.text = wh.Weight.toString()
+            heightView.text = ("%.0f".format(wh.Height*100))
+
+        }
     }
 }

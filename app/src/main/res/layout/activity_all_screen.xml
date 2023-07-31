@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
-    android:background="@color/global_back"
+    android:background="@color/app_background_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AllActivityScreen">
@@ -45,8 +45,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="23sp"
-                        android:textSize="20sp"
-                        android:hint="date"/>
+                        android:fontFamily="monospace"
+                        android:hint="date"
+                        android:textSize="20sp" />
 
 
                     <RelativeLayout
@@ -65,11 +66,11 @@
                             android:layout_height="250sp"
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="50sp"
-                            app:cpb_background_progressbar_color="#b6bbd8"
+                            app:cpb_background_progressbar_color="@color/app_background_color"
                             app:cpb_background_progressbar_width="10dp"
                             app:cpb_progress_direction="to_right"
                             app:cpb_progress_max="8000"
-                            app:cpb_progressbar_color="#3f51b5"
+                            app:cpb_progressbar_color="@color/app_text_color"
                             app:cpb_progressbar_width="15dp"
                             app:cpb_round_border="true" />
 
@@ -88,7 +89,7 @@
                                 android:layout_marginBottom="100sp"
                                 android:paddingBottom="10sp"
                                 android:src="@drawable/running_icon"
-                                android:tint="#3f51b5"
+                                android:tint="@color/app_background_color"
                                 tools:ignore="UseAppTint" />
 
 
@@ -100,7 +101,7 @@
                                 android:layout_centerInParent="true"
                                 android:gravity="center"
                                 android:hint="steps"
-                                android:textColor="#3f51b5"
+                                android:textColor="@color/app_text_color"
                                 android:textSize="30sp"
                                 android:textStyle="bold" />
 
@@ -110,6 +111,7 @@
                                 android:layout_centerInParent="true"
                                 android:paddingTop="45sp"
                                 android:text="REMAINING"
+                                android:textColor="@color/app_text_color"
                                 android:textSize="17sp"
                                 android:textStyle="bold" />
 
@@ -126,53 +128,45 @@
                         android:layout_marginLeft="10sp"
                         android:layout_marginRight="10sp"
                         android:background="@drawable/white_background_bottom"
-                        android:weightSum="3"
+                        android:weightSum="2"
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:weightSum="2"
+                            android:weightSum="3"
                             android:orientation="vertical">
 
                             <TextView
                                 android:gravity="center"
                                 android:id="@+id/ID_dist"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="50sp"
                                 android:hint="distance"
-                                android:textSize="13sp"
-                                android:textStyle="bold" />
+                                android:textSize="18sp"
+                                android:textColor="@color/app_text_color"
+                                android:textStyle="bold"  />
 
                             <TextView
                                 android:gravity="center"
                                 android:paddingTop="8sp"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_alignBottom="@id/ID_dist"
-                                android:layout_marginStart="50sp"
                                 android:text="DISTANCE"
+                                android:textColor="@color/app_text_color"
                                 android:textSize="10sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"/>
                         </LinearLayout>
 
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:weightSum="2"
-                            android:orientation="vertical"
-                            android:layout_weight="1">
-
-
-
-
-                        </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:weightSum="3"
                             android:orientation="vertical"
@@ -184,8 +178,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="steps"
-                                android:layout_marginEnd="50sp"
-                                android:textSize="13sp"
+                                android:textSize="18sp"
+                                android:textColor="@color/app_text_color"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -194,7 +188,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="STEPS"
-                                android:layout_marginEnd="50sp"
+                                android:textColor="@color/app_text_color"
                                 android:textSize="10sp"
                                 android:textStyle="bold" />
 
@@ -209,7 +203,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/distance_layout"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginLeft="10sp"
                         android:layout_marginRight="10sp"
                         android:background="@drawable/white_background">
@@ -233,9 +227,10 @@
                             android:layout_marginTop="5sp"
                             android:layout_marginBottom="5sp"
                             android:layout_toEndOf="@+id/sleeping_icon"
+                            android:gravity="center"
                             android:hint="Sleep"
                             android:paddingEnd="10sp"
-                            android:textAlignment="textEnd"
+                            android:textColor="@color/app_text_color"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
@@ -247,7 +242,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/sleep_Layout"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginLeft="10sp"
                         android:layout_marginRight="10sp"
                         android:background="@drawable/white_background">
@@ -271,9 +266,10 @@
                             android:layout_marginTop="5sp"
                             android:layout_marginBottom="5sp"
                             android:layout_toEndOf="@+id/heart_ratio_icon"
+                            android:gravity="center"
                             android:hint="HeartRatio"
                             android:paddingEnd="10sp"
-                            android:textAlignment="textEnd"
+                            android:textColor="@color/app_text_color"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
@@ -284,7 +280,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/heart_ratio_Layout"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginLeft="10sp"
                         android:layout_marginRight="10sp"
                         android:background="@drawable/white_background">
@@ -307,9 +303,10 @@
                             android:layout_marginTop="5sp"
                             android:layout_marginBottom="5sp"
                             android:layout_toEndOf="@+id/calories_icon"
+                            android:gravity="center"
                             android:hint="Calories"
                             android:paddingEnd="10sp"
-                            android:textAlignment="textEnd"
+                            android:textColor="@color/app_text_color"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 

@@ -9,7 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#E30C0C</color>
     <color name="orange">#f47b36</color>
-    <color name="blue">#5fb3ff</color>
     <color name="light_blue">#5fb3ff</color>
     <color name="dark_blue">#2049DB</color>
     <color name="yellow">#F3D218</color>
@@ -18,6 +17,7 @@
     <color name="green">#5d6e10</color>
     <color name="purple">#B064C0</color>
     <color name="global_back">#CEDFEA</color>
+    <color name="blue">#0C6BA8</color>
 
 
     <!-- Background colors for activities in all activity screen -->
@@ -25,6 +25,10 @@
     <color name="orange_back">#E69D50</color>
     <color name="purple_back">#6B74D5</color>
 
+    <!-- Main colors -->
+    <color name="app_main_color">#8fc2ff</color>
+    <color name="app_background_color">#c7e1ff</color>
+    <color name="app_text_color">#0d3565</color>
 
 
 </resources>
