@@ -14,6 +14,7 @@ import android.view.MenuItem
 import android.view.Window
 import android.widget.Button
 import android.widget.DatePicker
+import android.widget.ImageView
 import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
@@ -51,7 +52,8 @@ class YourProfileActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
     private lateinit var ageView: TextView
     private lateinit var heightView: TextView
     private lateinit var weightView: TextView
-    private lateinit var dataBtn: Button
+    private lateinit var dataBtn: ImageView
+    private lateinit var BMIBtn: ImageView
     private lateinit var nameView: TextView
     private lateinit var mailView: TextView
 
@@ -65,7 +67,8 @@ class YourProfileActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        dataBtn = findViewById(R.id.ID_changeDataButton)
+        dataBtn = findViewById(R.id.ID_changeDateBtn)
+        BMIBtn = findViewById(R.id.ID_BMIbtn)
         ageView = findViewById(R.id.ID_age)
         nameView = findViewById(R.id.ID_name)
         mailView = findViewById(R.id.ID_mail)
@@ -85,13 +88,50 @@ class YourProfileActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
 
         initializeData()
         dataBtn.setOnClickListener{
-            showCustomDialogBox()
+            showCustomDialogBoxSettings()
         }
+        BMIBtn.setOnClickListener{
+            showCustomDialogBoxBMI()
+        }
+
+    }
+
+    private fun showCustomDialogBoxBMI() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.bmi_dialog)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val BMIText: TextView = dialog.findViewById(R.id.ID_BMI)
+        val BMIDescription: TextView = dialog.findViewById(R.id.BMI_decription)
+        val btnReturn: Button = dialog.findViewById(R.id.ID_returnBtn)
+        var h = wh.Height
+        var w = wh.Weight
+
+        var BMI = w/(h*h)
+
+        BMI = kotlin.math.round(BMI * 10.0) / 10.0
+
+        BMIText.text = BMI.toString()
+
+        when{
+            BMI < 18.5 -> BMIDescription.text = "Underweight"
+            BMI in 18.5..24.9 -> BMIDescription.text = "Normal"
+            BMI in 25.0..29.9 -> BMIDescription.text = "Overweight"
+            BMI in 30.0..34.9 -> BMIDescription.text = "Obesity 1st Class"
+            BMI in 35.0..39.9 -> BMIDescription.text = "Obesity 2nd Class"
+            BMI >= 40 -> BMIDescription.text = "Obesity 3nd Class"
+        }
+
+        btnReturn.setOnClickListener(){
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
 
-
-    private fun showCustomDialogBox() {
+    private fun showCustomDialogBoxSettings() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)

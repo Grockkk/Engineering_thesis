@@ -202,6 +202,7 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         return super.onOptionsItemSelected(item)
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onRefresh() {
         initializeData()
         swipeRefreshLayout.isRefreshing = false

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
@@ -57,7 +58,7 @@
                         android:layout_marginTop="80sp"
                         android:layout_marginRight="10sp"
                         android:layout_marginLeft="10sp"
-                        android:background="@drawable/white_background_top"
+                        android:background="@drawable/background_top"
                         >
 
                         <com.mikhaellopez.circularprogressbar.CircularProgressBar
@@ -127,7 +128,7 @@
                         android:layout_below="@id/steps_Layout"
                         android:layout_marginLeft="10sp"
                         android:layout_marginRight="10sp"
-                        android:background="@drawable/white_background_bottom"
+                        android:background="@drawable/background_bottom"
                         android:weightSum="2"
                         android:orientation="horizontal">
 
@@ -206,7 +207,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginLeft="10sp"
                         android:layout_marginRight="10sp"
-                        android:background="@drawable/white_background">
+                        android:background="@drawable/background">
 
                         <ImageView
                             android:id="@+id/sleeping_icon"
@@ -245,7 +246,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginLeft="10sp"
                         android:layout_marginRight="10sp"
-                        android:background="@drawable/white_background">
+                        android:background="@drawable/background">
 
                         <ImageView
                             android:id="@+id/heart_ratio_icon"
@@ -283,7 +284,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginLeft="10sp"
                         android:layout_marginRight="10sp"
-                        android:background="@drawable/white_background">
+                        android:background="@drawable/background">
 
                         <ImageView
                             android:id="@+id/calories_icon"
