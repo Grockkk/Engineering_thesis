@@ -45,7 +45,6 @@ class YourProfileActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
 
     var globalAge = GlobalClass()
 
-    private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var healthConnectClient : HealthConnectClient
     private lateinit var gsc: GoogleSignInClient
 

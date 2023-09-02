@@ -1,9 +1,275 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+
+    android:background="@color/app_background_color"
+
     tools:context=".InsideStepsActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/chartLayout"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="415dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/weeklyDataSteps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="16dp"
+        android:text="Weekly steps data"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/app_text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chartLayout" />
+
+    <TextView
+        android:id="@+id/StepsTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  - Steps total:"
+        android:textSize="16sp"
+        android:layout_marginStart="10sp"
+        android:textColor="@color/app_text_color"
+        app:layout_constraintStart_toStartOf="@+id/weeklyDataSteps"
+        app:layout_constraintTop_toBottomOf="@+id/weeklyDataSteps" />
+
+    <TextView
+        android:id="@+id/ID_TotalSteps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Weeksteps"
+        android:textSize="16sp"
+        android:layout_marginStart="10sp"
+        android:textColor="@color/app_text_color"
+        app:layout_constraintStart_toEndOf="@+id/StepsTotal"
+        app:layout_constraintTop_toTopOf="@+id/StepsTotal" />
+
+    <TextView
+        android:id="@+id/NumberOfMAXSteps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  - Max number of steps:"
+        android:textSize="16dp"
+        android:textColor="@color/app_text_color"
+        app:layout_constraintStart_toStartOf="@+id/StepsTotal"
+        app:layout_constraintTop_toBottomOf="@+id/StepsTotal" />
+
+    <TextView
+        android:id="@+id/ID_weeklyMAXSteps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="maxSteps"
+        android:textSize="16dp"
+        android:layout_marginLeft="10sp"
+        android:textColor="@color/app_text_color"
+        app:layout_constraintStart_toEndOf="@+id/NumberOfMAXSteps"
+        app:layout_constraintTop_toTopOf="@+id/NumberOfMAXSteps" />
+
+    <TextView
+        android:id="@+id/NumberOfMINSteps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  - Min number of steps:"
+        android:textSize="16dp"
+        android:textColor="@color/app_text_color"
+        app:layout_constraintStart_toStartOf="@+id/NumberOfMAXSteps"
+        app:layout_constraintTop_toBottomOf="@+id/NumberOfMAXSteps" />
+
+    <TextView
+        android:id="@+id/ID_weeklyMINSteps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="minSteps"
+        android:textSize="16dp"
+        android:layout_marginLeft="10sp"
+        android:textColor="@color/app_text_color"
+        app:layout_constraintStart_toEndOf="@+id/NumberOfMINSteps"
+        app:layout_constraintTop_toTopOf="@+id/NumberOfMINSteps" />
+
+    <TextView
+        android:id="@+id/weeklyDataDistance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="Weekly distance data"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/app_text_color"
+        app:layout_constraintTop_toBottomOf="@+id/NumberOfMINSteps" />
+
+        <TextView
+            android:id="@+id/DistanceTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  - Distance total:"
+            android:textSize="16dp"
+            android:layout_marginLeft="10sp"
+            android:textColor="@color/app_text_color"
+            app:layout_constraintStart_toStartOf="@+id/weeklyDataDistance"
+            app:layout_constraintTop_toBottomOf="@+id/weeklyDataDistance" />
+
+        <TextView
+            android:id="@+id/ID_TotalDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="WeekDistance"
+            android:textSize="16dp"
+            android:layout_marginLeft="10sp"
+            android:textColor="@color/app_text_color"
+            app:layout_constraintStart_toEndOf="@+id/DistanceTotal"
+            app:layout_constraintTop_toTopOf="@+id/DistanceTotal" />
+
+        <TextView
+            android:id="@+id/NumberOfMAXDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  - Max distance:"
+            android:textSize="16dp"
+            android:textColor="@color/app_text_color"
+            app:layout_constraintStart_toStartOf="@+id/DistanceTotal"
+            app:layout_constraintTop_toBottomOf="@+id/DistanceTotal" />
+
+        <TextView
+            android:id="@+id/ID_weeklyMAXDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="MaxWeekDistance"
+            android:textSize="16dp"
+            android:layout_marginLeft="10sp"
+            android:textColor="@color/app_text_color"
+            app:layout_constraintStart_toEndOf="@+id/NumberOfMAXDistance"
+            app:layout_constraintTop_toTopOf="@+id/NumberOfMAXDistance" />
+
+        <TextView
+            android:id="@+id/NumberOfMINDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  - Min distance:"
+            android:textSize="16dp"
+            android:textColor="@color/app_text_color"
+            app:layout_constraintStart_toStartOf="@+id/NumberOfMAXDistance"
+            app:layout_constraintTop_toBottomOf="@+id/NumberOfMAXDistance" />
+
+        <TextView
+            android:id="@+id/ID_weeklyMINDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="MinWeekDistance"
+            android:textSize="16dp"
+            android:layout_marginLeft="10sp"
+            android:textColor="@color/app_text_color"
+            app:layout_constraintStart_toEndOf="@+id/NumberOfMINDistance"
+            app:layout_constraintTop_toTopOf="@+id/NumberOfMINDistance" />
+
+        <TextView
+            android:id="@+id/weeklyDataCalories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Weekly calories data"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/app_text_color"
+            app:layout_constraintTop_toBottomOf="@+id/NumberOfMINDistance" />
+
+        <TextView
+            android:id="@+id/CaloriesTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  - Calories total:"
+            android:textSize="16dp"
+            android:layout_marginLeft="10sp"
+            android:textColor="@color/app_text_color"
+            app:layout_constraintStart_toStartOf="@+id/weeklyDataCalories"
+            app:layout_constraintTop_toBottomOf="@+id/weeklyDataCalories" />
+
+        <TextView
+            android:id="@+id/ID_TotalCalories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="WeekCalories"
+            android:textSize="16dp"
+            android:layout_marginLeft="10sp"
+            android:textColor="@color/app_text_color"
+            app:layout_constraintStart_toEndOf="@+id/CaloriesTotal"
+            app:layout_constraintTop_toTopOf="@+id/CaloriesTotal" />
+        <TextView
+            android:id="@+id/NumberOfMAXCalories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  - Max calories:"
+            android:textSize="16dp"
+            android:textColor="@color/app_text_color"
+            app:layout_constraintStart_toStartOf="@+id/CaloriesTotal"
+            app:layout_constraintTop_toBottomOf="@+id/CaloriesTotal" />
+
+        <TextView
+            android:id="@+id/ID_weeklyMAXCalories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="MaxWeekCalories"
+            android:textSize="16dp"
+            android:layout_marginLeft="10sp"
+            android:textColor="@color/app_text_color"
+            app:layout_constraintStart_toEndOf="@+id/NumberOfMAXCalories"
+            app:layout_constraintTop_toTopOf="@+id/NumberOfMAXCalories" />
+
+        <TextView
+            android:id="@+id/NumberOfMINCalories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  - Min calories:"
+            android:textSize="16dp"
+            android:textColor="@color/app_text_color"
+            app:layout_constraintStart_toStartOf="@+id/NumberOfMAXCalories"
+            app:layout_constraintTop_toBottomOf="@+id/NumberOfMAXCalories" />
+
+        <TextView
+            android:id="@+id/ID_weeklyMINCalories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="MinWeekDistance"
+            android:textSize="16dp"
+            android:layout_marginLeft="10sp"
+            android:textColor="@color/app_text_color"
+            app:layout_constraintStart_toEndOf="@+id/NumberOfMINCalories"
+            app:layout_constraintTop_toTopOf="@+id/NumberOfMINCalories" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

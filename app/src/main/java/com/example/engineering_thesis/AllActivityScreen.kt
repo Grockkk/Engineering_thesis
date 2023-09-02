@@ -108,15 +108,15 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         // koniec przycisków ruchu dat
 
         relativeLayoutSleep.setOnClickListener(){
-            Toast.makeText(applicationContext,"nice",Toast.LENGTH_SHORT).show()
+            navigateToSleep()
         }
 
         relativeLayoutSteps.setOnClickListener(){
-            Toast.makeText(applicationContext,"nice",Toast.LENGTH_SHORT).show()
+            navigateToSteps()
         }
 
         relativeLayoutHeartRatio.setOnClickListener(){
-            Toast.makeText(applicationContext,"nice",Toast.LENGTH_SHORT).show()
+            navigateToHeartRatio()
         }
 
     }
@@ -158,7 +158,7 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
                 }
                 sleepView.text = timeOfSleep.toString()
                 heartRatView.text = hr.getMeanHeartRate().toString()+ " BPM"
-                distanceView.text = totalDistance.toString() + " km"
+                distanceView.text = totalDistance.inKilometers.toString() + " km"
                 caloriesView.text = calories + "kcal"
             }
         }
@@ -211,6 +211,24 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
     private fun navigateToProfile() {
         finish()
         val intent = Intent(this, YourProfileActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun navigateToSteps() {
+        finish()
+        val intent = Intent(this, InsideStepsActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun navigateToHeartRatio() {
+        finish()
+        val intent = Intent(this, InsideHeartRatioActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun navigateToSleep() {
+        finish()
+        val intent = Intent(this, InsideSleepActivity::class.java)
         startActivity(intent)
     }
 }
