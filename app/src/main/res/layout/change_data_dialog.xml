@@ -64,7 +64,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textSize="12sp"
-                android:text="Change width" />
+                android:text="Change weight" />
 
             <NumberPicker
                 android:id="@+id/ID_changeWidth"

@@ -31,7 +31,7 @@ class Steps {
         }
     }
 
-    suspend fun aggregateStepsWithDates(
+    suspend fun aggregateStepsForChart(
         healthConnectClient: HealthConnectClient,
         startTime: LocalDateTime,
         endTime: LocalDateTime
@@ -67,6 +67,7 @@ class Steps {
         }
     }
 
+    /*
     suspend fun readStepsWeek(healthConnectClient : HealthConnectClient, startTime: Instant, endTime: Instant): Int {
         val response =
             healthConnectClient.aggregate(
@@ -83,6 +84,7 @@ class Steps {
             return response[StepsRecord.COUNT_TOTAL]!!.toInt()
         }
     }
+    */
 
     suspend fun getWeeklyData(
         healthConnectClient: HealthConnectClient,

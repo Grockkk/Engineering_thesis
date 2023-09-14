@@ -80,6 +80,7 @@ class WeightHeight {
         try {
             healthConnectClient.insertRecords(records)
         } catch (e: Exception) {
+
         }
     }
 

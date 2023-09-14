@@ -96,11 +96,11 @@ class InsideStepsActivity : AppCompatActivity() {
         return HealthConnectClient.getOrCreate(this@InsideStepsActivity)
     }
 
-    private fun initializeData(startTime: Instant,endTime: Instant, ) {
+    private fun initializeData(startTime: Instant,endTime: Instant ) {
         GlobalScope.launch(Dispatchers.Main){
             val tab = ArrayList<BarEntry>()
 
-            val results = st.aggregateStepsWithDates(
+            val results = st.aggregateStepsForChart(
                 healthConnectClient,
                 LocalDateTime.ofInstant(startTime, ZoneOffset.UTC).with(LocalTime.MIN),
                 LocalDateTime.ofInstant(endTime,ZoneOffset.UTC).with(LocalTime.MAX))

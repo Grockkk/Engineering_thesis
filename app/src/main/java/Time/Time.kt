@@ -33,18 +33,12 @@ class Time() {
 
     fun getStartTimeWeek(): Instant {
         var startLocalDate = LocalDate.now()
-        while (startLocalDate.dayOfWeek != DayOfWeek.MONDAY) {
-            startLocalDate = startLocalDate.minusDays(1)
-        }
-        val startOfDay = LocalDateTime.of(startLocalDate, LocalTime.MIN)
+        val startOfDay = LocalDateTime.of(startLocalDate, LocalTime.MIN).minusDays(7)
         return  Instant.from(startOfDay.toInstant(ZoneOffset.UTC))
     }
 
     fun getEndTimeWeek(): Instant{
-        var endLocalDate = LocalDate.now()
-        while (endLocalDate.dayOfWeek != DayOfWeek.SUNDAY) {
-            endLocalDate = endLocalDate.plusDays(1)
-        }
+        val endLocalDate = LocalDate.now()
         return Instant.from((LocalDateTime.of(endLocalDate, LocalTime.MAX)).toInstant(ZoneOffset.UTC))
     }
 

@@ -95,6 +95,8 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         initializeData()
 
 
+
+
         // przyciski ruchu dat
             prevDayButton.setOnClickListener(){
                 time.incrDay()
@@ -144,6 +146,11 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         GlobalScope.launch(Dispatchers.Main) {
             val numberOfSteps = st.readSteps(healthConnectClient, time.getStartTime(), time.getEndTime())
             val timeOfSleep = sl.readSleepDuration(healthConnectClient, time.getStartTime(), time.getEndTime())
+            for (outcome in timeOfSleep){
+                val h = outcome.first
+                val m = outcome.second
+                sleepView.text = h.toString() + "h" + m.toString() + "m"
+            }
             hr.aggregateHeartRate(healthConnectClient, time.getStartTime(), time.getEndTime())
             val totalDistance = dst.readDistance(healthConnectClient, time.getStartTime(), time.getEndTime())
             val calories = cal.readBurnedCalories(healthConnectClient, time.getStartTime(), time.getEndTime())
@@ -156,7 +163,6 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
                 }else{
                     stepsRemainingView.text = (8000 - numberOfSteps).toString()
                 }
-                sleepView.text = timeOfSleep.toString()
                 heartRatView.text = hr.getMeanHeartRate().toString()+ " BPM"
                 distanceView.text = totalDistance.inKilometers.toString() + " km"
                 caloriesView.text = calories + "kcal"

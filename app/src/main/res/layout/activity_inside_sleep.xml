@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="@color/app_background_color"
     tools:context=".InsideSleepActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart"
@@ -18,18 +24,141 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/background"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:layout_marginTop="28dp"
         android:layout_gravity="center"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/background"
         app:layout_constraintTop_toBottomOf="@+id/barChart" />
 
+        <TextView
+            android:id="@+id/stagesDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15sp"
+            android:text="Stages duration:"
+            android:textColor="@color/app_text_color"
+            app:layout_constraintTop_toBottomOf="@+id/pieChart" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/awake"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Awake stage:"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="5sp"
+            android:textColor="@color/app_text_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stagesDetails" />
+
+        <TextView
+            android:id="@+id/ID_awake"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="no data"
+            android:textColor="@color/app_text_color"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="5sp"
+            app:layout_constraintStart_toEndOf="@+id/awake"
+            app:layout_constraintTop_toBottomOf="@+id/stagesDetails" />
+
+        <TextView
+            android:id="@+id/light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Light stage:"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="5sp"
+            android:textColor="@color/app_text_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/awake" />
+
+        <TextView
+            android:id="@+id/ID_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="no data"
+            android:textColor="@color/app_text_color"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="5sp"
+            app:layout_constraintStart_toEndOf="@+id/light"
+            app:layout_constraintTop_toBottomOf="@+id/awake" />
+
+        <TextView
+            android:id="@+id/deep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deep stage:"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="5sp"
+            android:textColor="@color/app_text_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/light" />
+
+        <TextView
+            android:id="@+id/ID_deep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="no data"
+            android:textColor="@color/app_text_color"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="5sp"
+            app:layout_constraintStart_toEndOf="@+id/deep"
+            app:layout_constraintTop_toBottomOf="@+id/light" />
+
+        <TextView
+            android:id="@+id/REM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REM stage:"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="5sp"
+            android:textColor="@color/app_text_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/deep" />
+
+        <TextView
+            android:id="@+id/ID_REM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="no data"
+            android:textColor="@color/app_text_color"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="5sp"
+            app:layout_constraintStart_toEndOf="@+id/REM"
+            app:layout_constraintTop_toBottomOf="@+id/deep" />
+
+        <TextView
+            android:id="@+id/unknown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unknown stage:"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="5sp"
+            android:textColor="@color/app_text_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/REM" />
+
+        <TextView
+            android:id="@+id/ID_unknown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="no data"
+            android:textColor="@color/app_text_color"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="5sp"
+            app:layout_constraintStart_toEndOf="@+id/unknown"
+            app:layout_constraintTop_toBottomOf="@+id/REM" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
