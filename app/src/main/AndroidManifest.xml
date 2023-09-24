@@ -35,6 +35,11 @@
         android:theme="@style/Theme.Engineering_thesis"
         tools:targetApi="31">
         <activity
+            android:name=".AddDataActivity"
+            android:exported="true"
+            android:parentActivityName=".AllActivityScreen"
+            android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar" />
+        <activity
             android:name=".InsideHeartRatioActivity"
             android:exported="true"
             android:parentActivityName=".AllActivityScreen"

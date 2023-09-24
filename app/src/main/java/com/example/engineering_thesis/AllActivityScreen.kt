@@ -55,6 +55,8 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
     private val st = Steps()
     private val sl = Sleep()
 
+    var global = GlobalClass()
+
     @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("MissingInflatedId", "SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +68,15 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
 
         // logowanie google
         healthConnectClient = initializeGoogle()
+
+        var goal = global.stepsGoal
+
+        val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+        val goalSteps = sharedPreferences.getInt("stepsGoal", 0)
+        if (goalSteps != 0) {
+            goal = goalSteps
+            GlobalClass.instance.stepsGoal = goalSteps
+        }
 
         stepsView = findViewById(R.id.ID_totalSteps)
         dateOfTheDayView = findViewById(R.id.ID_currnetDay)
@@ -93,9 +104,6 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         }
 
         initializeData()
-
-
-
 
         // przyciski ruchu dat
             prevDayButton.setOnClickListener(){
@@ -133,7 +141,7 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         if (acct!= null) {
             val personName = acct.displayName
             val actionBar = supportActionBar
-            actionBar?.title = "Witaj " + personName.toString()
+            actionBar?.title = "Hello " + personName.toString() + "!"
         }
 
         return HealthConnectClient.getOrCreate(this@AllActivityScreen)
@@ -158,10 +166,10 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
                 progressBarSteps.progress = numberOfSteps.toFloat()
                 dateOfTheDayView.text = time.day.toString()
                 stepsView.text = numberOfSteps.toString()
-                if(numberOfSteps >= 8000){
+                if(numberOfSteps >= GlobalClass.instance.stepsGoal){
                     stepsRemainingView.text = 0.toString()
                 }else{
-                    stepsRemainingView.text = (8000 - numberOfSteps).toString()
+                    stepsRemainingView.text = (GlobalClass.instance.stepsGoal - numberOfSteps).toString()
                 }
                 heartRatView.text = hr.getMeanHeartRate().toString()+ " BPM"
                 distanceView.text = totalDistance.inKilometers.toString() + " km"
@@ -180,10 +188,9 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         navView.setNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.ID_settings -> Toast.makeText(applicationContext,"nice",Toast.LENGTH_SHORT).show()
                 R.id.ID_profile -> navigateToProfile()
-                R.id.ID_addAct -> Toast.makeText(applicationContext,"nice",Toast.LENGTH_SHORT).show()
-                R.id.ID_startAct -> Toast.makeText(applicationContext,"nice",Toast.LENGTH_SHORT).show()
+                R.id.ID_addAct -> navigateToAddData()
+                R.id.ID_credits -> Toast.makeText(applicationContext,"nice",Toast.LENGTH_SHORT).show()
                 R.id.ID_singOut -> singOut()
             }
             true
@@ -217,6 +224,12 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
     private fun navigateToProfile() {
         finish()
         val intent = Intent(this, YourProfileActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun navigateToAddData() {
+        finish()
+        val intent = Intent(this, AddDataActivity::class.java)
         startActivity(intent)
     }
 

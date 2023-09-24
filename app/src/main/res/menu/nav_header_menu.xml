@@ -6,17 +6,13 @@
         android:icon="@drawable/your_profile_icon"
         android:title="Your profile"/>
     <item
-        android:id="@+id/ID_settings"
-        android:icon="@drawable/settings_icon"
-        android:title="Settings"/>
-    <item
         android:id="@+id/ID_addAct"
         android:icon="@drawable/add_activity_icon"
         android:title="Add Activity"/>
     <item
-        android:id="@+id/ID_startAct"
-        android:icon="@drawable/start_activity"
-        android:title="Start Activity"/>
+        android:id="@+id/ID_credits"
+        android:icon="@drawable/writer"
+        android:title="Credits"/>
     <item
         android:id="@+id/ID_singOut"
         android:icon="@drawable/sing_out_icon"

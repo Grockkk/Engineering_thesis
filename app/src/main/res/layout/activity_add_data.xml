@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background_color"
+    tools:context=".AddDataActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose data"
+            android:textSize="35sp"
+            android:textAlignment="center"
+            android:layout_marginTop="20sp"
+            android:textColor="@color/app_text_color"
+            />
+
+        <RelativeLayout
+            android:id="@+id/ID_addSteps"
+            android:layout_width="match_parent"
+            android:layout_height="130sp"
+            android:paddingStart="20sp"
+            android:paddingEnd="20sp"
+            android:layout_marginStart="10sp"
+            android:layout_marginEnd="10sp"
+            android:layout_marginTop="20sp"
+            android:background="@drawable/background">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="35sp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/app_text_color"
+                android:textStyle="bold"
+                android:text="Steps"/>
+
+            <ImageView
+                android:layout_width="100sp"
+                android:layout_height="100sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/footprints"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ID_addDistance"
+            android:layout_width="match_parent"
+            android:layout_height="130sp"
+            android:paddingStart="20sp"
+            android:paddingEnd="20sp"
+            android:layout_marginStart="10sp"
+            android:layout_marginEnd="10sp"
+            android:layout_marginTop="20sp"
+            android:background="@drawable/background">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="35sp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/app_text_color"
+                android:textStyle="bold"
+                android:text="Distance"/>
+
+            <ImageView
+                android:layout_width="100sp"
+                android:layout_height="100sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/distance"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ID_addSleep"
+            android:layout_width="match_parent"
+            android:layout_height="130sp"
+            android:paddingStart="20sp"
+            android:paddingEnd="20sp"
+            android:layout_marginStart="10sp"
+            android:layout_marginEnd="10sp"
+            android:layout_marginTop="20sp"
+            android:background="@drawable/background">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="35sp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/app_text_color"
+                android:textStyle="bold"
+                android:text="Sleep"/>
+
+            <ImageView
+                android:layout_width="100sp"
+                android:layout_height="100sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/sleeping"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ID_addSCalories"
+            android:layout_width="match_parent"
+            android:layout_height="130sp"
+            android:paddingStart="20sp"
+            android:paddingEnd="20sp"
+            android:layout_marginStart="10sp"
+            android:layout_marginEnd="10sp"
+            android:layout_marginTop="20sp"
+            android:background="@drawable/background">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="35sp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/app_text_color"
+                android:textStyle="bold"
+                android:text="Calories"/>
+
+            <ImageView
+                android:layout_width="100sp"
+                android:layout_height="100sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/calories"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ID_addSHeartRatio"
+            android:layout_width="match_parent"
+            android:layout_height="130sp"
+            android:paddingStart="20sp"
+            android:paddingEnd="20sp"
+            android:layout_marginStart="10sp"
+            android:layout_marginEnd="10sp"
+            android:layout_marginTop="20sp"
+            android:background="@drawable/background">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="35sp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/app_text_color"
+                android:textStyle="bold"
+                android:text="Heart Rate"/>
+
+            <ImageView
+                android:layout_width="100sp"
+                android:layout_height="100sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/heart_rate"
+                />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

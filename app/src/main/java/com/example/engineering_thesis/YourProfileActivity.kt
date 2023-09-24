@@ -140,16 +140,20 @@ class YourProfileActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         val btnBirth: Button = dialog.findViewById(R.id.ID_changeDateBtn)
         val btnSubmit: Button = dialog.findViewById(R.id.ID_submit)
         val heightPicker: NumberPicker = dialog.findViewById(R.id.ID_changeHeight)
+        val goalPicker: NumberPicker = dialog.findViewById(R.id.ID_changeGoal)
         val widthPicker: NumberPicker = dialog.findViewById(R.id.ID_changeWidth)
 
         widthPicker.minValue = 0
         widthPicker.maxValue = 500
         widthPicker.value = (wh.Weight).toInt()
 
-
         heightPicker.minValue = 0
         heightPicker.maxValue = 500
         heightPicker.value = (wh.Height * 100).toInt()
+
+        goalPicker.minValue = 0
+        goalPicker.maxValue = 50000
+        goalPicker.value = GlobalClass.instance.stepsGoal
 
         btnBirth.setOnClickListener{
             getDateCalendar()
@@ -162,9 +166,17 @@ class YourProfileActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
             val w = (widthPicker.value).toDouble()
 
             GlobalScope.launch(Dispatchers.Main) {
+                GlobalClass.instance.stepsGoal = goalPicker.value
                 wh.writeWeightInput(healthConnectClient,w)
                 wh.writeHeightInput(healthConnectClient,h)
+
             }
+
+            val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putInt("stepsGoal", GlobalClass.instance.stepsGoal)
+            editor.apply()
+
             initializeData()
             Toast.makeText(applicationContext,"Data has been changed",Toast.LENGTH_SHORT).show()
             dialog.dismiss()
@@ -213,8 +225,6 @@ class YourProfileActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         val date = LocalDate.parse("$BDay $Bmonth $Byear", formatter)
         GlobalClass.instance.birthday = date.toString()
         ageView.text = GlobalClass.instance.birthday
-
-
 
         val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
         val editor = sharedPreferences.edit()

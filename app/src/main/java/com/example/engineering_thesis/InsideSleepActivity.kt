@@ -18,6 +18,7 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
@@ -120,13 +121,17 @@ class InsideSleepActivity : AppCompatActivity() {
                 var duration = result.first
                 val label = result.second
                 totalDuration += duration
-                entries.add(PieEntry(duration.toFloat(), label+" [%]"))
+                entries.add(PieEntry(duration.toFloat(), "$label [%]"))
 
                 var h = 0
 
                 while(duration >= 60){
                     h += 1
                     duration -= 60
+                }
+                if(sleepStagesRecords.size == 3){
+                    awake.text = "no data"
+                    unknown.text = "no data"
                 }
                 when(label){
                     "Awake" -> awake.text = "$h h $duration min"
@@ -147,7 +152,7 @@ class InsideSleepActivity : AppCompatActivity() {
             dataSet.valueTextColor = Color.BLACK
 
 
-                val pieChart: PieChart = findViewById(R.id.pieChart)
+            val pieChart: PieChart = findViewById(R.id.pieChart)
             val pieData = PieData(dataSet)
             pieChart.data = pieData
 
@@ -227,19 +232,18 @@ class InsideSleepActivity : AppCompatActivity() {
                 index += 1f // Zwiększ indeks dla następnej daty
             }
 
-            val barDataSet = BarDataSet(tab, "Data")
+            val barDataSet = BarDataSet(tab, "Duration of sleep [min]")
             barDataSet.color = (Color.rgb(13, 53, 101))
             val data = BarData(barDataSet)
-
-
 
             barChart.data = data
             barChart.description.isEnabled = false
             barChart.setDrawGridBackground(false)
+            barChart.animateY(1000,Easing.EaseInOutBack)
             val xAxis = barChart.xAxis
             xAxis.setDrawGridLines(false)
             xAxis.valueFormatter = IndexAxisValueFormatter(xAxisLabels) // Ustawienie etykiet
-            xAxis.position = XAxis.XAxisPosition.BOTTOM_INSIDE
+            xAxis.position = XAxis.XAxisPosition.BOTTOM
 
             val l = barChart.legend
             l.verticalAlignment = Legend.LegendVerticalAlignment.TOP

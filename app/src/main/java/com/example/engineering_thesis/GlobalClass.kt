@@ -9,7 +9,7 @@ import java.util.*
 
 class GlobalClass: Application() {
     var birthday: String = "0 0 0"
-    var stepsMax: Int = 8000
+    var stepsGoal: Int = 8000
 
     companion object {
         @JvmStatic
@@ -21,6 +21,7 @@ class GlobalClass: Application() {
         super.onCreate()
         instance = this
     }
+
 
     //private fun calculateAge(birthDate: LocalDate): Int {
     //    val currentDate = LocalDate.now()

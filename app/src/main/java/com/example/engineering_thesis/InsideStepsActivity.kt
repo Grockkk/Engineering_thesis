@@ -144,7 +144,6 @@ class InsideStepsActivity : AppCompatActivity() {
 
                 val barChart: BarChart = findViewById(R.id.barChart)
                 barChart.data = data
-                barChart.setDrawGridBackground(false)
 
                 val l = barChart.legend
                 barChart.description.text = ""

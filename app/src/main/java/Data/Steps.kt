@@ -67,25 +67,6 @@ class Steps {
         }
     }
 
-    /*
-    suspend fun readStepsWeek(healthConnectClient : HealthConnectClient, startTime: Instant, endTime: Instant): Int {
-        val response =
-            healthConnectClient.aggregate(
-                AggregateRequest(
-                    metrics = setOf(StepsRecord.COUNT_TOTAL),
-                    timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
-                )
-            )
-// The result may be null if no data is available in the time range.
-        if(response[StepsRecord.COUNT_TOTAL]?.toInt() == null) {
-            return 0
-        }
-        else{
-            return response[StepsRecord.COUNT_TOTAL]!!.toInt()
-        }
-    }
-    */
-
     suspend fun getWeeklyData(
         healthConnectClient: HealthConnectClient,
         startTime: LocalDateTime,
