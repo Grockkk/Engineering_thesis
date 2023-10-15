@@ -14,6 +14,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.units.kilometers
+import androidx.lifecycle.lifecycleScope
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
@@ -97,7 +98,7 @@ class InsideStepsActivity : AppCompatActivity() {
     }
 
     private fun initializeData(startTime: Instant,endTime: Instant ) {
-        GlobalScope.launch(Dispatchers.Main){
+        lifecycleScope.launch(Dispatchers.Main){
             val tab = ArrayList<BarEntry>()
 
             val results = st.aggregateStepsForChart(

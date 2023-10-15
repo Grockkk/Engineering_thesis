@@ -9,9 +9,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.health.connect.client.HealthConnectClient
+import androidx.lifecycle.lifecycleScope
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
@@ -23,6 +25,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
 import java.time.*
 
@@ -40,13 +43,15 @@ class InsideHeartRatioActivity : AppCompatActivity() {
 
         healthConnectClient = initializeGoogle()
 
-
+        // inicjalizacja wykresów
         val barChart: BarChart = findViewById(R.id.barChart)
         val lineChart: LineChart = findViewById(R.id.lineChart)
 
+        // pobiearanie danych do wykresu
         initializeBarChartData(time.getStartTimeWeek(),time.getEndTimeWeek(), barChart)
         initializelineChartData(time.getStartTime(),time.getEndTime(),lineChart)
 
+        // reakcja na klikanie w słupki
         barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
             override fun onValueSelected(e: Entry?, h: Highlight?) {
                 if (e != null) {
@@ -61,6 +66,7 @@ class InsideHeartRatioActivity : AppCompatActivity() {
         })
     }
 
+    // obsługa navBar
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
@@ -72,6 +78,7 @@ class InsideHeartRatioActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    // obsługa połączenia z Google
     @SuppressLint("SetTextI18n")
     fun initializeGoogle(): HealthConnectClient {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -82,24 +89,21 @@ class InsideHeartRatioActivity : AppCompatActivity() {
         return HealthConnectClient.getOrCreate(this@InsideHeartRatioActivity)
     }
 
-    //////
-
+    // funkcja pobierająca dane dla wykresu słupka
     private fun initializeBarChartData(startTime: Instant, endTime: Instant, barChart: BarChart) {
-        GlobalScope.launch(Dispatchers.Main) {
+        lifecycleScope.launch(Dispatchers.Main) {
             val tab = ArrayList<BarEntry>()
 
             val results = hr.aggregateheartRatioForBarChart(
                 healthConnectClient,
-                LocalDateTime.ofInstant(startTime, ZoneOffset.UTC).with(LocalTime.MIN)
-                    .minusSeconds(18000),
+                LocalDateTime.ofInstant(startTime, ZoneOffset.UTC).with(LocalTime.MIN),
                 LocalDateTime.ofInstant(endTime, ZoneOffset.UTC).with(LocalTime.MAX)
-                    .minusSeconds(18000)
             )
 
             var index = 0f // Numer indeksu dla osi X
             val xAxisLabels = ArrayList<String>()
             for (result in results) {
-                val date = result.first // Zakładam, że wynik zawiera datę
+                val date = result.first
                 val heartRatioAVG = result.second
 
                 if (heartRatioAVG != null) {
@@ -145,8 +149,10 @@ class InsideHeartRatioActivity : AppCompatActivity() {
             barChart.invalidate()
         }
     }
+
+    // pobieranie danych dla dla wykresu okrągłego
     private fun initializelineChartData(startTime: Instant, endTime: Instant, lineChart: LineChart) {
-        GlobalScope.launch(Dispatchers.Main) {
+        lifecycleScope.launch(Dispatchers.Main) {
 
             val entries = arrayListOf<Entry>()
             val results = hr.aggregateheartRatioForLineChart(
@@ -199,6 +205,17 @@ class InsideHeartRatioActivity : AppCompatActivity() {
             lineChart.invalidate() // Odśwież wykres
 
         }
+    }
+
+    // zwalnianie pamięci po skonczeniu działania
+    override fun onDestroy() {
+        super.onDestroy()
+        val barChart: BarChart = findViewById(R.id.barChart)
+        val lineChart: BarChart = findViewById(R.id.lineChart)
+        barChart.clear()
+        lineChart.clear()
+
+        lifecycleScope.coroutineContext.cancelChildren()
     }
 
 }

@@ -1,11 +1,13 @@
 package Data
 
+import Time.Time
 import android.annotation.SuppressLint
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.aggregate.AggregateMetric
+import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.SleepStageRecord
 import androidx.health.connect.client.records.StepsRecord
@@ -20,6 +22,7 @@ import kotlin.time.Duration.Companion.seconds
 import kotlin.time.toDuration
 
 class Sleep {
+    private val time = Time()
     @SuppressLint("SuspiciousIndentation")
     @RequiresApi(Build.VERSION_CODES.S)
     suspend fun readSleepDuration(
@@ -111,23 +114,49 @@ class Sleep {
                     timeRangeFilter = TimeRangeFilter.between(startTime, endTime),
                     timeRangeSlicer = Period.ofDays(1)
                 )
+
             )
-            var index = 0
-            val sleepRecords = mutableListOf<Pair<LocalDateTime, Long?>>()
+
+            // Pobranie rekordów i przypisanie do sleepRecords
+            var sleepRecords = mutableListOf<Pair<LocalDateTime, Long?>>()
             for (result in aggregatedResults) {
                 val date = result.endTime// koniec okresu, czyli data pomiaru
-                val totalSleep = result.result[SleepSessionRecord.SLEEP_DURATION_TOTAL]?.seconds?.div(
-                    60
-                )
-
-                while (endTime.minusDays(7).dayOfMonth.plus(index) != date.dayOfMonth){
-                    sleepRecords.add(Pair(LocalDateTime.now().minusDays(7).plusDays(index.toLong()),0))
-                    index += 1
-                }
+                var totalSleep = result.result[SleepSessionRecord.SLEEP_DURATION_TOTAL]?.seconds?.div(60)
                 sleepRecords.add(Pair(date, totalSleep))
-                index += 1
             }
-            return sleepRecords
+
+            var outcome = mutableListOf<Pair<LocalDateTime, Long?>>()
+
+            // Tworzymy pętle wyjściową metody i wypełniamy zerami
+            for (i in 1..8) {
+                outcome.add(Pair(startTime.plusDays(i.toLong()),0))
+            }
+
+            // Tworzymy indeks którym będziemy iterować po outcomie
+            var index = 0
+
+            // W pętli sprawdzamy czy daty w sleepRecords oraz outcome się zgadzają, jeśli tak to
+            // outcome[index] przyjmuje wartość value oraz zwiększamy index
+            // W przeciwnym wypadku zwiększamy index
+            for (value in sleepRecords) {
+
+                // Zwiększamy index do uzyskania tych samych dat
+                while (index < outcome.size && value.first != outcome[index].first) {
+                    index++
+                }
+
+                // Jeżeli jest to ostatni index przypisujemy ostatnią wartość sleepRecords
+                // Pętla wykona się jedynie jeśli na ostatniej dacie rekordów jest wartość
+                if (index >= outcome.size) {
+                    outcome[index-1] = value
+                    break
+                }
+
+                // Jeśli znaleźliśmy dopasowanie, przypisz wartość oraz zwiększ index
+                outcome[index] = value
+                index++
+            }
+            return outcome
         } catch (e: Exception) {
             // Obsługa błędów
             Log.e("AggregationError", "An error occurred during aggregation: ${e.message}")

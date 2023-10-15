@@ -10,6 +10,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.Window
 import android.widget.Button
@@ -21,6 +22,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.health.connect.client.HealthConnectClient
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -165,7 +167,7 @@ class YourProfileActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
             h /= 100
             val w = (widthPicker.value).toDouble()
 
-            GlobalScope.launch(Dispatchers.Main) {
+            lifecycleScope.launch(Dispatchers.Main) {
                 GlobalClass.instance.stepsGoal = goalPicker.value
                 wh.writeWeightInput(healthConnectClient,w)
                 wh.writeHeightInput(healthConnectClient,h)
@@ -233,12 +235,12 @@ class YourProfileActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
     }
 
     @SuppressLint("SetTextI18n")
-    @OptIn(DelicateCoroutinesApi::class)
     fun initializeData(){
-        GlobalScope.launch(Dispatchers.Main) {
+        lifecycleScope.launch(Dispatchers.Main) {
             wh.readWeightAndHeight(healthConnectClient, time.getStartTime(), time.getEndTime())
             weightView.text = wh.Weight.toString()
             heightView.text = ("%.0f".format(wh.Height*100))
+            Log.e("goal", GlobalClass.instance.stepsGoal.toString())
 
         }
     }

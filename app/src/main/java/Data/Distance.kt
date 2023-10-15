@@ -13,6 +13,7 @@ import androidx.health.connect.client.units.kilometers
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.Period
+import java.time.ZoneId
 import kotlin.math.round
 
 class Distance {
@@ -79,6 +80,24 @@ class Distance {
             Log.e("AggregationError", "An error occurred during aggregation: ${e.message}")
             e.printStackTrace()
             return emptyList()
+        }
+    }
+
+    suspend fun writeDistance(healthConnectClient: HealthConnectClient,DistanceInput: Double, startTime: Instant,endTime: Instant) {
+        val zoneIdPoland = ZoneId.of("Europe/Warsaw")
+        val km = DistanceInput.kilometers
+        val distanceRecord = DistanceRecord(
+            distance = km,
+            startTime = startTime,
+            endTime = endTime,
+            startZoneOffset = ZoneId.systemDefault().rules.getOffset(startTime),
+            endZoneOffset = ZoneId.systemDefault().rules.getOffset(endTime)
+        )
+        val records = listOf(distanceRecord)
+        try {
+            healthConnectClient.insertRecords(records)
+        }
+        catch (e: Exception) {
         }
     }
 }

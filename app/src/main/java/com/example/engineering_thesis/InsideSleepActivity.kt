@@ -7,11 +7,12 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings.Global
+import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.health.connect.client.HealthConnectClient
+import androidx.lifecycle.lifecycleScope
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.LineChart
@@ -26,9 +27,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -81,10 +80,6 @@ class InsideSleepActivity : AppCompatActivity() {
         })
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
@@ -108,7 +103,7 @@ class InsideSleepActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun initializePieChartData(startTime: Instant, endTime: Instant){
-        GlobalScope.launch(Dispatchers.Main ) {
+        lifecycleScope.launch {
 
             val sleepStagesRecords = sl.readSleepSessionsStages(
                 healthConnectClient,
@@ -187,71 +182,81 @@ class InsideSleepActivity : AppCompatActivity() {
             l.setDrawInside(false) // Nie rysuj legendy wewnątrz wykresu
             l.textColor = Color.BLACK
 
-
             pieChart.invalidate()
         }
     }
 
     private fun initializeBarChartData(startTime: Instant, endTime: Instant, barChart: BarChart) {
-        GlobalScope.launch(Dispatchers.Main) {
-            val tab = ArrayList<BarEntry>()
 
-            val results = sl.aggregateSleepForChart(
-                healthConnectClient,
-                LocalDateTime.ofInstant(startTime, ZoneOffset.UTC).with(LocalTime.MIN)
-                    .minusSeconds(18000),
-                LocalDateTime.ofInstant(endTime, ZoneOffset.UTC).with(LocalTime.MAX)
-                    .minusSeconds(18000)
-            )
+        lifecycleScope.launch(Dispatchers.Main) {
+        val tab = ArrayList<BarEntry>()
 
-            var index = 0f // Numer indeksu dla osi X
-            val xAxisLabels = ArrayList<String>()
-            for (result in results) {
-                val date = result.first // Zakładam, że wynik zawiera datę
-                val duration = result.second
+        val results =sl.aggregateSleepForChart(
+            healthConnectClient,
+            LocalDateTime.ofInstant(startTime, ZoneOffset.UTC).with(LocalTime.MIN)
+                .minusSeconds(18000),
+            LocalDateTime.ofInstant(endTime, ZoneOffset.UTC).with(LocalTime.MAX)
+                .minusSeconds(18000)
+        )
 
-                if (duration != null) {
-                    tab.add(BarEntry(index, duration.toFloat()))
-                }
-                var d = ""
-                var m = ""
+        var index = 0f // Numer indeksu dla osi X
+        val xAxisLabels = ArrayList<String>()
+        for (result in results) {
 
-                m = if(date.toLocalDate().month.value < 10){
-                    "0" + date.toLocalDate().month.value.toString()
-                }else{
-                    date.toLocalDate().month.value.toString()
-                }
+            val date = result.first
+            val duration = result.second
+            Log.e("result",result.second.toString())
+            if (duration != null) {
+                tab.add(BarEntry(index, duration.toFloat()))
+            }
+            var d = ""
+            var m = ""
 
-                d = if(date.toLocalDate().dayOfMonth < 10){
-                    "0" + date.toLocalDate().dayOfMonth.toString()
-                }else{
-                    date.toLocalDate().dayOfMonth.toString()
-                }
-
-                xAxisLabels.add("$d-$m")
-                index += 1f // Zwiększ indeks dla następnej daty
+            m = if (date.toLocalDate().month.value < 10) {
+                "0" + date.toLocalDate().month.value.toString()
+            } else {
+                date.toLocalDate().month.value.toString()
             }
 
-            val barDataSet = BarDataSet(tab, "Duration of sleep [min]")
-            barDataSet.color = (Color.rgb(13, 53, 101))
-            val data = BarData(barDataSet)
+            d = if (date.toLocalDate().dayOfMonth < 10) {
+                "0" + date.toLocalDate().dayOfMonth.toString()
+            } else {
+                date.toLocalDate().dayOfMonth.toString()
+            }
 
-            barChart.data = data
-            barChart.description.isEnabled = false
-            barChart.setDrawGridBackground(false)
-            barChart.animateY(1000,Easing.EaseInOutBack)
-            val xAxis = barChart.xAxis
-            xAxis.setDrawGridLines(false)
-            xAxis.valueFormatter = IndexAxisValueFormatter(xAxisLabels) // Ustawienie etykiet
-            xAxis.position = XAxis.XAxisPosition.BOTTOM
-
-            val l = barChart.legend
-            l.verticalAlignment = Legend.LegendVerticalAlignment.TOP
-            l.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
-            l.setDrawInside(false) // Nie rysuj legendy wewnątrz wykresu
-
-            barChart.invalidate()
-
+            xAxisLabels.add("$d-$m")
+            index += 1f // Zwiększ indeks dla następnej daty
         }
+
+        val barDataSet = BarDataSet(tab, "Duration of sleep [min]")
+        barDataSet.color = (Color.rgb(13, 53, 101))
+        val data = BarData(barDataSet)
+
+        barChart.data = data
+        barChart.description.isEnabled = false
+        barChart.setDrawGridBackground(false)
+        barChart.animateY(1000, Easing.EaseInOutBack)
+        val xAxis = barChart.xAxis
+        xAxis.setDrawGridLines(false)
+        xAxis.valueFormatter = IndexAxisValueFormatter(xAxisLabels) // Ustawienie etykiet
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+
+        val l = barChart.legend
+        l.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+        l.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
+        l.setDrawInside(false) // Nie rysuj legendy wewnątrz wykresu
+
+        barChart.invalidate()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val pieChart: PieChart = findViewById(R.id.pieChart)
+        val barChart: BarChart = findViewById(R.id.barChart)
+        pieChart.clear()
+        barChart.clear()
+
+        lifecycleScope.coroutineContext.cancelChildren()
     }
 }

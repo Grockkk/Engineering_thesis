@@ -1,173 +1,306 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background_color"
     tools:context=".AddDataActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Choose data"
-            android:textSize="35sp"
-            android:textAlignment="center"
-            android:layout_marginTop="20sp"
-            android:textColor="@color/app_text_color"
-            />
-
-        <RelativeLayout
-            android:id="@+id/ID_addSteps"
-            android:layout_width="match_parent"
-            android:layout_height="130sp"
-            android:paddingStart="20sp"
-            android:paddingEnd="20sp"
+            android:elevation="20dp"
             android:layout_marginStart="10sp"
+            android:layout_marginTop="62sp"
             android:layout_marginEnd="10sp"
-            android:layout_marginTop="20sp"
-            android:background="@drawable/background">
+            android:layout_marginBottom="20sp"
+            android:background="@drawable/background"
+            android:padding="8sp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="300sp"
                 android:layout_height="wrap_content"
-                android:textSize="35sp"
-                android:layout_centerVertical="true"
+                android:layout_centerInParent="true"
+                android:justificationMode="inter_word"
+                android:text="Choose activity to add"
                 android:textColor="@color/app_text_color"
-                android:textStyle="bold"
-                android:text="Steps"/>
-
-            <ImageView
-                android:layout_width="100sp"
-                android:layout_height="100sp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/footprints"
-                />
-
+                android:textSize="28sp"
+                android:textStyle="bold" />
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/ID_addDistance"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="130sp"
-            android:paddingStart="20sp"
-            android:paddingEnd="20sp"
-            android:layout_marginStart="10sp"
-            android:layout_marginEnd="10sp"
-            android:layout_marginTop="20sp"
-            android:background="@drawable/background">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="35sp"
-                android:layout_centerVertical="true"
-                android:textColor="@color/app_text_color"
-                android:textStyle="bold"
-                android:text="Distance"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20sp"
+                android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="100sp"
-                android:layout_height="100sp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/distance"
-                />
+                <LinearLayout
+                    android:id="@+id/ID_addSteps"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-        </RelativeLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center_horizontal"
+                        android:elevation="20dp"
+                        android:background="@drawable/add_data_dark_background_for_activities">
 
-        <RelativeLayout
-            android:id="@+id/ID_addSleep"
-            android:layout_width="match_parent"
-            android:layout_height="130sp"
-            android:paddingStart="20sp"
-            android:paddingEnd="20sp"
-            android:layout_marginStart="10sp"
-            android:layout_marginEnd="10sp"
-            android:layout_marginTop="20sp"
-            android:background="@drawable/background">
+                        <ImageView
+                            android:id="@+id/imageSteps"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/add_data_circle_behind_activity" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="35sp"
-                android:layout_centerVertical="true"
-                android:textColor="@color/app_text_color"
-                android:textStyle="bold"
-                android:text="Sleep"/>
+                        <ImageView
+                            android:layout_width="50sp"
+                            android:layout_height="50sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageSteps"
+                            app:layout_constraintEnd_toEndOf="@+id/imageSteps"
+                            app:layout_constraintHorizontal_bias="0.45"
+                            app:layout_constraintStart_toStartOf="@+id/imageSteps"
+                            app:layout_constraintTop_toTopOf="@+id/imageSteps"
+                            app:srcCompat="@drawable/footprints"
+                            app:tint="@color/app_background_color" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageView
-                android:layout_width="100sp"
-                android:layout_height="100sp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/sleeping"
-                />
-        </RelativeLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Steps"
+                        android:textAlignment="center"
+                        android:textColor="@color/app_text_color"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-        <RelativeLayout
-            android:id="@+id/ID_addSCalories"
-            android:layout_width="match_parent"
-            android:layout_height="130sp"
-            android:paddingStart="20sp"
-            android:paddingEnd="20sp"
-            android:layout_marginStart="10sp"
-            android:layout_marginEnd="10sp"
-            android:layout_marginTop="20sp"
-            android:background="@drawable/background">
+                <LinearLayout
+                    android:id="@+id/ID_addDistance"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="35sp"
-                android:layout_centerVertical="true"
-                android:textColor="@color/app_text_color"
-                android:textStyle="bold"
-                android:text="Calories"/>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:elevation="20dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/add_data_dark_background_for_activities">
 
-            <ImageView
-                android:layout_width="100sp"
-                android:layout_height="100sp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/calories"
-                />
-        </RelativeLayout>
+                        <ImageView
+                            android:id="@+id/imageDistance"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/add_data_circle_behind_activity" />
 
-        <RelativeLayout
-            android:id="@+id/ID_addSHeartRatio"
-            android:layout_width="match_parent"
-            android:layout_height="130sp"
-            android:paddingStart="20sp"
-            android:paddingEnd="20sp"
-            android:layout_marginStart="10sp"
-            android:layout_marginEnd="10sp"
-            android:layout_marginTop="20sp"
-            android:background="@drawable/background">
+                        <ImageView
+                            android:layout_width="50sp"
+                            android:layout_height="50sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageDistance"
+                            app:layout_constraintEnd_toEndOf="@+id/imageDistance"
+                            app:layout_constraintHorizontal_bias="0.45"
+                            app:layout_constraintStart_toStartOf="@+id/imageDistance"
+                            app:layout_constraintTop_toTopOf="@+id/imageDistance"
+                            app:srcCompat="@drawable/distance"
+                            app:tint="@color/app_background_color" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="35sp"
-                android:layout_centerVertical="true"
-                android:textColor="@color/app_text_color"
-                android:textStyle="bold"
-                android:text="Heart Rate"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Distance"
+                        android:textAlignment="center"
+                        android:textColor="@color/app_text_color"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-            <ImageView
-                android:layout_width="100sp"
-                android:layout_height="100sp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/heart_rate"
-                />
-        </RelativeLayout>
+                <LinearLayout
+                    android:id="@+id/ID_addSleep"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:elevation="20dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/add_data_dark_background_for_activities">
+
+                        <ImageView
+                            android:id="@+id/imageSleep"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/add_data_circle_behind_activity" />
+
+                        <ImageView
+                            android:id="@+id/imageView6"
+                            android:layout_width="50sp"
+                            android:layout_height="50sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageSleep"
+                            app:layout_constraintEnd_toEndOf="@+id/imageSleep"
+                            app:layout_constraintHorizontal_bias="0.45"
+                            app:layout_constraintStart_toStartOf="@+id/imageSleep"
+                            app:layout_constraintTop_toTopOf="@+id/imageSleep"
+                            app:srcCompat="@drawable/sleeping"
+                            app:tint="@color/app_background_color" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Sleep"
+                        android:textAlignment="center"
+                        android:textColor="@color/app_text_color"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/ID_addSCalories"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:elevation="20dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/add_data_dark_background_for_activities">
+
+                        <ImageView
+                            android:id="@+id/imageCalories"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/add_data_circle_behind_activity" />
+
+                        <ImageView
+                            android:layout_width="50sp"
+                            android:layout_height="50sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageCalories"
+                            app:layout_constraintEnd_toEndOf="@+id/imageCalories"
+                            app:layout_constraintHorizontal_bias="0.45"
+                            app:layout_constraintStart_toStartOf="@+id/imageCalories"
+                            app:layout_constraintTop_toTopOf="@+id/imageCalories"
+                            app:srcCompat="@drawable/calories"
+                            app:tint="@color/app_background_color" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Calories Burned"
+                        android:textAlignment="center"
+                        android:textColor="@color/app_text_color"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ID_addSHeartRate"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:elevation="20dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/add_data_dark_background_for_activities">
+
+                        <ImageView
+                            android:id="@+id/imageHeartRate"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/add_data_circle_behind_activity" />
+
+                        <ImageView
+                            android:layout_width="50sp"
+                            android:layout_height="50sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageHeartRate"
+                            app:layout_constraintEnd_toEndOf="@+id/imageHeartRate"
+                            app:layout_constraintHorizontal_bias="0.45"
+                            app:layout_constraintStart_toStartOf="@+id/imageHeartRate"
+                            app:layout_constraintTop_toTopOf="@+id/imageHeartRate"
+                            app:srcCompat="@drawable/heart_rate"
+                            app:tint="@color/app_background_color" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Heart Rate"
+                        android:textAlignment="center"
+                        android:textColor="@color/app_text_color"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
-</ScrollView>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

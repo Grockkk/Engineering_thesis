@@ -75,20 +75,49 @@ class HeartRatio {
                     timeRangeSlicer = Period.ofDays(1)
                 )
             )
-            var index = 0
             val hrRecords = mutableListOf<Pair<LocalDateTime, Long?>>()
             for (result in aggregatedResults) {
-                val date = result.endTime// koniec okresu, czyli data pomiaru
+                val date = result.startTime
                 val AVGHeartRatio = result.result[HeartRateRecord.BPM_AVG]
-
-                while (endTime.minusDays(7).dayOfMonth.plus(index) != date.dayOfMonth){
-                    hrRecords.add(Pair(LocalDateTime.now().minusDays(7).plusDays(index.toLong()),0))
-                    index += 1
-                }
+                Log.e("hr","$AVGHeartRatio")
+                Log.e("time","$date")
                 hrRecords.add(Pair(date, AVGHeartRatio))
-                index += 1
             }
-            return hrRecords
+
+            var outcome = mutableListOf<Pair<LocalDateTime, Long?>>()
+
+            // Tworzymy pętle wyjściową metody i wypełniamy zerami
+            for (i in 1..8) {
+                outcome.add(Pair(startTime.plusDays((i-1).toLong()),0))
+            }
+
+            // Tworzymy indeks którym będziemy iterować po outcomie
+            var index = 0
+
+            // W pętli sprawdzamy czy daty w sleepRecords oraz outcome się zgadzają, jeśli tak to
+            // outcome[index] przyjmuje wartość value oraz zwiększamy index
+            // W przeciwnym wypadku zwiększamy index
+            for (value in hrRecords) {
+
+                // Zwiększamy index do uzyskania tych samych dat
+                while (index < outcome.size && value.first != outcome[index].first) {
+                    index++
+                    Log.e("value", value.first.toString())
+                    Log.e("outcome", outcome[index].first.toString())
+                }
+
+                // Jeżeli jest to ostatni index przypisujemy ostatnią wartość sleepRecords
+                // Pętla wykona się jedynie jeśli na ostatniej dacie rekordów jest wartość
+                if (index >= outcome.size) {
+                    outcome[index-1] = value
+                    break
+                }
+
+                // Jeśli znaleźliśmy dopasowanie, przypisz wartość oraz zwiększ index
+                outcome[index] = value
+                index++
+            }
+            return outcome
         } catch (e: Exception) {
             // Obsługa błędów
             Log.e("AggregationError", "An error occurred during aggregation: ${e.message}")
@@ -117,8 +146,6 @@ class HeartRatio {
                 // The result may be null if no data is available in the time range
                 val averageHeartRatio = record.result[HeartRateRecord.BPM_AVG]
                 val date = LocalDateTime.ofInstant(record.startTime, ZoneOffset.systemDefault())
-                Log.e("hr","$averageHeartRatio")
-                Log.e("time","$date")
                 heartRatioRecords.add(Pair(date,averageHeartRatio))
             }
             return heartRatioRecords

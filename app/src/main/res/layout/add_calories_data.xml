@@ -1,6 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/app_background_color">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="32dp">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="100sp"
+                    android:layout_height="100sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/circle_photo_background" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="70sp"
+                    android:layout_height="70sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView"
+                    app:layout_constraintStart_toStartOf="@+id/imageView"
+                    app:layout_constraintTop_toTopOf="@+id/imageView"
+                    app:srcCompat="@drawable/calories" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="143dp"
+                    android:layout_height="84dp"
+                    android:layout_marginStart="32dp"
+                    android:text="Calories Data"
+                    android:textColor="@color/app_text_color"
+                    android:textSize="33sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintTop_toTopOf="@+id/imageView"
+                    app:layout_constraintVertical_bias="0.0" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="32sp"
+                android:layout_marginEnd="32sp"
+
+                android:background="@drawable/background"
+                android:elevation="20sp"
+                android:orientation="vertical"
+                android:padding="32sp">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Start Time*"
+                    android:textColor="@color/app_text_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/ID_StartTimePicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="50sp"
+                    android:layout_marginTop="8sp"
+                    android:backgroundTint="@color/light_blue"
+                    android:elevation="20sp"
+                    android:padding="8sp"
+                    android:text="Add"
+                    android:textColor="@color/app_text_color"
+                    android:textSize="16sp"
+                    app:cornerRadius="15sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18sp"
+                    android:text="End Time*"
+                    android:textColor="@color/app_text_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/ID_EndTimePicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="50sp"
+                    android:layout_marginTop="8sp"
+                    android:backgroundTint="@color/light_blue"
+                    android:elevation="20sp"
+                    android:padding="8sp"
+                    android:text="Add"
+                    android:textColor="@color/app_text_color"
+                    android:textSize="16sp"
+                    app:cornerRadius="15sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18sp"
+                    android:text="Calories burned*"
+                    android:textColor="@color/app_text_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/ID_Calories"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="6sp"
+                    android:ems="10"
+                    android:hint="Enter calories [kcal]"
+                    android:inputType="number"
+                    android:padding="8sp"
+                    android:textColor="@color/app_text_color"
+                    android:textColorHint="@color/app_text_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20sp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/ID_addDataSteps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10sp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/light_blue"
+                    android:elevation="20sp"
+                    android:padding="8sp"
+                    android:text="Add"
+                    android:textColor="@color/app_text_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="10sp" />
+
+                <Button
+                    android:id="@+id/ID_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10sp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/light_blue"
+                    android:elevation="20sp"
+                    android:text="Cancel"
+                    android:textColor="@color/app_text_color"
+                    android:textStyle="bold"
+                    app:cornerRadius="10sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

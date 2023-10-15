@@ -13,7 +13,10 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.health.connect.client.HealthConnectClient
+import androidx.lifecycle.lifecycleScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.PieChart
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -149,9 +152,8 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
 
     @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("SetTextI18n")
-    @OptIn(DelicateCoroutinesApi::class)
     fun initializeData(){
-        GlobalScope.launch(Dispatchers.Main) {
+        lifecycleScope.launch(Dispatchers.Main) {
             val numberOfSteps = st.readSteps(healthConnectClient, time.getStartTime(), time.getEndTime())
             val timeOfSleep = sl.readSleepDuration(healthConnectClient, time.getStartTime(), time.getEndTime())
             for (outcome in timeOfSleep){
@@ -190,7 +192,7 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
             when(it.itemId){
                 R.id.ID_profile -> navigateToProfile()
                 R.id.ID_addAct -> navigateToAddData()
-                R.id.ID_credits -> Toast.makeText(applicationContext,"nice",Toast.LENGTH_SHORT).show()
+                R.id.ID_credits -> navigateToCreators()
                 R.id.ID_singOut -> singOut()
             }
             true
@@ -233,6 +235,12 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         startActivity(intent)
     }
 
+    private fun navigateToCreators() {
+        finish()
+        val intent = Intent(this, CreatorsActivity::class.java)
+        startActivity(intent)
+    }
+
     private fun navigateToSteps() {
         finish()
         val intent = Intent(this, InsideStepsActivity::class.java)
@@ -249,6 +257,12 @@ class AllActivityScreen : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         finish()
         val intent = Intent(this, InsideSleepActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        lifecycleScope.coroutineContext.cancelChildren()
     }
 }
 

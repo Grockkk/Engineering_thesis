@@ -4,12 +4,12 @@ import android.util.Log
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.aggregate.AggregationResultGroupedByPeriod
 import androidx.health.connect.client.records.StepsRecord
+import androidx.health.connect.client.records.WeightRecord
 import androidx.health.connect.client.request.AggregateGroupByPeriodRequest
 import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.time.TimeRangeFilter
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.Period
+import androidx.health.connect.client.units.Mass
+import java.time.*
 import kotlin.time.Duration.Companion.days
 
 class Steps {
@@ -112,5 +112,22 @@ class Steps {
             return emptyList()
         }
     }
+    suspend fun writeSteps(healthConnectClient: HealthConnectClient,stepsInput: Long, startTime: Instant,endTime: Instant) {
+        val zoneIdPoland = ZoneId.of("Europe/Warsaw")
+        val stepsRecord = StepsRecord(
+            count = stepsInput,
+            startTime = startTime,
+            endTime = endTime,
+            startZoneOffset = ZoneId.systemDefault().rules.getOffset(startTime),
+            endZoneOffset = ZoneId.systemDefault().rules.getOffset(endTime)
+        )
+        val records = listOf(stepsRecord)
+        try {
+            healthConnectClient.insertRecords(records)
+        }
+        catch (e: Exception) {
+        }
+    }
+
 
 }

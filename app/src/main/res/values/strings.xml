@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Health app for wearables</string>
+    <string name="app_name">Health app</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
 </resources>

@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         HealthPermission.getWritePermission(StepsRecord::class),
 
         HealthPermission.getReadPermission(DistanceRecord::class),
+        HealthPermission.getWritePermission(DistanceRecord::class),
 
         HealthPermission.getWritePermission(HeartRateRecord::class),
         HealthPermission.getReadPermission(HeartRateRecord::class),

@@ -32,7 +32,7 @@ class Time() {
     }
 
     fun getStartTimeWeek(): Instant {
-        var startLocalDate = LocalDate.now()
+        val startLocalDate = LocalDate.now()
         val startOfDay = LocalDateTime.of(startLocalDate, LocalTime.MIN).minusDays(7)
         return  Instant.from(startOfDay.toInstant(ZoneOffset.UTC))
     }
@@ -41,7 +41,6 @@ class Time() {
         val endLocalDate = LocalDate.now()
         return Instant.from((LocalDateTime.of(endLocalDate, LocalTime.MAX)).toInstant(ZoneOffset.UTC))
     }
-
 
     fun setDateToday(){
         day = LocalDate.now()
